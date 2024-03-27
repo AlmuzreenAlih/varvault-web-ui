@@ -7,6 +7,7 @@ dotenv.config()
 export default defineConfig({
   plugins: [react()],
   server: {
+    // hmr:false,
     host: true,
     port: Number(process.env.PORT),
     base: '/reactor/'

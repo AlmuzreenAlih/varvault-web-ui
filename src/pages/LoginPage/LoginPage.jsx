@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import MainPanel from './MainPanel'
 
 function LoginPage() {
-    return (
-        <p>This is the login page</p>
-    )
+  return (
+    <>
+      <MainPanel />
+    </>
+  )
 }
 
 export default LoginPage;

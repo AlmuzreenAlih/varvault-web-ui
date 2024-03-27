@@ -1,0 +1,86 @@
+.parent {
+    background-color: green;
+
+    width: 90%;
+    
+
+    position: relative;
+
+    overflow-x: hidden;
+
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.input-box {
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+    position: relative;
+
+    width: 100%;
+    height: 2rem;
+
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 10px;
+}
+.input {
+    position: relative;
+    width: 100%;
+    font-size: 1rem;
+
+    border: 0;
+
+    outline: none;
+
+    z-index: 0;
+}
+
+.placeholder {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+    color: #969696;
+
+    z-index: 10;
+
+    transition: all 0.1s linear;
+}
+
+.placeholder2 {
+    top: 0%;
+
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-contacts-auto-fill-button {
+  display: none;
+}
+
+input[type="password"]::-webkit-inner-spin-button,
+input[type="password"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.availability {
+  position: relative;
+}
+
+span {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // flex-direction: column;
+}

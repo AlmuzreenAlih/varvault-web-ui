@@ -1,0 +1,30 @@
+button {
+    border: 1px solid #888;
+    border-radius: 32px;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+
+    color: white;
+    padding-block: 8px;
+    padding-inline: 16px;
+
+    margin-inline: 50px;
+    margin-bottom: 4px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.1);
+}
+
+.login {
+    background-color: var(--color_logo);
+    font-size: var(--font_1h);
+    width: 85%;
+}
+
+.register {
+    background-color: rgb(42, 42, 42);
+    font-size: var(--font_1h);
+    width: 85%;
+}
