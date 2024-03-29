@@ -5,10 +5,16 @@ import Button from '../../components/Button/Button';
 import Checker from '../../components/Checker/Checker';
 import axios from 'axios';
 import { config } from 'dotenv';
+import Cookies from 'universal-cookie';
 
 function MainPanel() {
+    const [registering, setRegistering] = useState(true);
+    const [isInitialRender, setIsInitialRender] = useState(true);
+    const cancelToken = axios.CancelToken.source();
+
     const titleMessage = useRef(null);
     const [buttonLabel, setButtonLabel] = useState("Register");
+    
     const [inputValues, setInputValues] = useState({
         username: "",
         password: "",
@@ -27,8 +33,6 @@ function MainPanel() {
         col: "transparent"
     })
 
-    const [registering, setRegistering] = useState(true);
-    const [isInitialRender, setIsInitialRender] = useState(true);
     useEffect(() => {
         if (!isInitialRender) {
             if ((inputValues.password === inputValues.password_confirm) && (inputValues.password !== "")) {
@@ -47,7 +51,6 @@ function MainPanel() {
         } else {setIsInitialRender(false);}
     }, [inputValues.password, inputValues.password_confirm]);
 
-    const cancelToken = axios.CancelToken.source();
     function handlerInputChanged(e) {
         const { name, value } = e.target;
         setInputValues({ ...inputValues, [name]: value });
@@ -90,7 +93,6 @@ function MainPanel() {
                 });
             }
         }
-        
         return () => {cancelToken.cancel('Request cancelled');};
     }
 
@@ -104,9 +106,9 @@ function MainPanel() {
             .then((res) => {
                 console.log(res.data);
                 if (res.data['authenticated']) {
-                    alert("register Succesful");
-                } else {
-                    alert("register wrong");
+                    const cookies = new Cookies();
+                    cookies.set('TokenSaved', res.data['token'], { path: '/' });
+                    window.location.replace('/');
                 }
             })
             .catch((err) => {
@@ -138,8 +140,7 @@ function MainPanel() {
 
                 }
             });
-        }
-        
+        }    
     }
 
     function handlerRegisterSwitch(e) {
