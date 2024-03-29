@@ -39,18 +39,24 @@ function Input(props) {
   }
 
   return (
-    <div className='parent' onClick={(e)=>handleInputBoxClick(e)}>
+    <div {...props} className='parent' onClick={(e)=>handleInputBoxClick(e)}>
       <div className="input-box">
-        <input name={props.name} ref={input} className='input' type={props.type} spellCheck="false"
-               onFocus={e=>handleInputFocused(e)} onBlur={e=>handleInputBlurred(e)}
-               onChange={props.onChange}/>
+        <input {...props} ref={input} 
+                          className='input'
+                          spellCheck="false"
+                          onFocus={e=>handleInputFocused(e)} 
+                          onBlur={e=>handleInputBlurred(e)} />
 
-        <p ref={placeholder} style={{left:"10px"}} className="placeholder">
-          {props.placeholder}
-        </p>
-        <p ref={placeholder2} style={{right:"0%", transform: "translate(100%,-50%)", paddingRight: "10px"}} 
-           className="placeholder"> {props.placeholder}
-        </p>
+        <p ref={placeholder}
+           style={{...props.style, left:"10px"}} 
+           className="placeholder" >
+           {props.hint} 
+           </p>
+
+        <p ref={placeholder2} 
+           style={{...props.style, right:"0%", transform: "translate(100%,-50%)", paddingRight: "10px"}} 
+           className="placeholder"> 
+           {props.hint} </p>
       </div>
     </div>
   )

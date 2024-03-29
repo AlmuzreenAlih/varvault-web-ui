@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './MainPanel.scss'
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
@@ -7,7 +7,8 @@ import axios from 'axios';
 import { config } from 'dotenv';
 
 function MainPanel() {
-
+    const titleMessage = useRef(null);
+    const [buttonLabel, setButtonLabel] = useState("Register");
     const [inputValues, setInputValues] = useState({
         username: "",
         password: "",
@@ -15,17 +16,42 @@ function MainPanel() {
     });
 
     const [LoginCheckMsg, setLoginCheckMsg] = useState({
-        msg: "minimum of 8 characters",
-        sym: "close",
-        col: "red"
+        msg: "",
+        sym: ".",
+        col: "transparent"
     });
 
+    const [PasswordMatchMsg, setPasswordMatchMsg] = useState({
+        msg: "",
+        sym: ".",
+        col: "transparent"
+    })
+
     const [registering, setRegistering] = useState(true);
+    const [isInitialRender, setIsInitialRender] = useState(true);
+    useEffect(() => {
+        if (!isInitialRender) {
+            if ((inputValues.password === inputValues.password_confirm) && (inputValues.password !== "")) {
+                setPasswordMatchMsg({
+                    msg: "Passwords match",
+                    sym: "check",
+                    col: "#9BCF53"
+                });
+            } else {
+                setPasswordMatchMsg({
+                    msg: "Passwords do not match",
+                    sym: "close",
+                    col: "red"
+                });
+            }
+        } else {setIsInitialRender(false);}
+    }, [inputValues.password, inputValues.password_confirm]);
+
+    const cancelToken = axios.CancelToken.source();
     function handlerInputChanged(e) {
-        const cancelToken = axios.CancelToken.source();
         const { name, value } = e.target;
         setInputValues({ ...inputValues, [name]: value });
-
+        
         if (name == "username") {
             if (value.length < 7) {
                 setLoginCheckMsg({...LoginCheckMsg, 
@@ -59,22 +85,76 @@ function MainPanel() {
                         setLoginCheckMsg({...LoginCheckMsg, 
                             msg: value + " is already used.",
                             sym: "close",
-                            col: "#E72929"});
+                            col: "#9BCF53"});
                     }
                 });
             }
         }
-        if (name=="password") {
-            if (registering) {
-
-            }
-        }
+        
         return () => {cancelToken.cancel('Request cancelled');};
     }
 
     function handlerLoginSubmit() {
+        if (registering) {
+            axios({ url: 'http://127.0.0.1:3000/private/register',
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+                    data: { username: inputValues.username, password: inputValues.password },
+                    cancelToken: cancelToken.token,})
+            .then((res) => {
+                console.log(res.data);
+                if (res.data['authenticated']) {
+                    alert("register Succesful");
+                } else {
+                    alert("register wrong");
+                }
+            })
+            .catch((err) => {
+                if (axios.isCancel(err)) {
+                console.log("Request cancelled:", err.message);
+                } else {
+                    alert("register wrong2");
+                }
+            });
+        } else {
+            axios({ url: 'http://127.0.0.1:3000/private/login',
+                    method: 'post',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+                    data: { username: inputValues.username, password: inputValues.password },
+                    cancelToken: cancelToken.token,})
+            .then((res) => {
+                console.log(res.data);
+                if (res.data['authenticated']) {
+                    alert("Login Succesful");
+                } else {
+                    alert("Login wrong");
+                }
+            })
+            .catch((err) => {
+                if (axios.isCancel(err)) {
+                console.log("Request cancelled:", err.message);
+                } else {
+                    alert("Login wrong2");
 
+                }
+            });
+        }
         
+    }
+
+    function handlerRegisterSwitch(e) {
+        if (registering) {
+            setRegistering(false);
+            e.target.innerHTML = "No account? Register."
+            titleMessage.current.innerHTML = "Login to your VarVault API Account."
+            setButtonLabel("Login");
+        }
+        else {
+            setRegistering(true);
+            e.target.innerHTML = "Already have an account? Login."
+            titleMessage.current.innerHTML = "Create your VarVault API account."
+            setButtonLabel("Register");
+        }
     }
 
     return (
@@ -84,20 +164,40 @@ function MainPanel() {
                     <img src="/assets/logo.png" alt="" />
                     <p>VarVault Web UI</p>
                 </div>
-                <p className='login-label txt-md'>Create your VarVault API account</p><br />
-                <Input name="username" placeholder="Username" 
+                
+                <p ref={titleMessage} 
+                   className='login-label txt-md'> Create your VarVault API account </p><br />
+                
+                <Input name="username" hint="Username" 
                        onChange={e=>{handlerInputChanged(e)}} 
                        checker="http://127.0.0.1:3000/private/username-check" />
+                
                 <Checker message={LoginCheckMsg['msg']} symbol={LoginCheckMsg['sym']} color={LoginCheckMsg['col']}></Checker>
-                <Input name="password" placeholder="Password" 
-                       onChange={e=>handlerInputChanged(e)} type="password" />
+                
+                <Input name="password" 
+                       hint="Password" 
+                       onChange={e=>handlerInputChanged(e)} 
+                       type="password" />
                        <br />
-                <Input name="password_confirm" placeholder="Confirm Password" 
-                       onChange={e=>handlerInputChanged(e)} type="password" />
-                       <br />
-                <Button className="login" onClick={e=>handlerLoginSubmit(e)} label="Register" />
+                
+                <Input style={!registering ? {visibility: "hidden", position: "absolute"} : null}
+                       name="password_confirm" 
+                       hint="Confirm Password" 
+                       onChange={e=>handlerInputChanged(e)} 
+                       type="password" />
 
-                <p className="login-label">Already have an account? Login.</p>
+                <Checker style={!registering ? {visibility: "hidden", position: "absolute"} : null}
+                         message={PasswordMatchMsg['msg']} 
+                         symbol={PasswordMatchMsg['sym']} 
+                         color={PasswordMatchMsg['col']}> </Checker>
+                <br />
+
+                <Button className="login" 
+                        onClick={e=>handlerLoginSubmit(e)} 
+                        label={buttonLabel} />
+
+                <a className="login-label" 
+                   onClick={e=>handlerRegisterSwitch(e)}> Already have an account? Login. </a>
 
                 {/* <Button className="register" onClick={e=>handlerLoginSubmit(e)} label="Registration"></Button> */}
 
