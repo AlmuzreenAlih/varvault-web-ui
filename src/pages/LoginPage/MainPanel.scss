@@ -44,27 +44,27 @@
     a {
         cursor: pointer;
     }
-}
 
-.logo-div {
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    img {
-        height: 60px;
-        border: 3px solid var(--color_logo);
-        border-radius: 8px;
-        margin-left: 10px;
-        margin-right: 3px;
+    .logo-div {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        img {
+            height: 60px;
+            border: 3px solid var(--color_logo);
+            border-radius: 8px;
+            margin-left: 10px;
+            margin-right: 3px;
+        }
+    
+        p {
+            font-weight: 600;
+            font-size: 45px;
+        }
+    
+        margin-bottom: var(--pageBreak);
     }
-
-    p {
-        font-weight: 600;
-        font-size: 45px;
-    }
-
-    margin-bottom: var(--pageBreak);
 }
 

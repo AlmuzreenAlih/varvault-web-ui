@@ -6,6 +6,8 @@
   text-decoration: none;
   // color: green;
   font-family: "Instrument Sans";
+
+  
 }
 
 html {
@@ -14,14 +16,19 @@ html {
 
 :root {
   --color_theme1: #22092C;
-  --color_theme2: #61197d;
+  --color_theme2: #d992f5;
   
   --pageBreak: 1rem;
   --color_logo: #872341;
-
+  --color_mode: white;
+  --color_contrast: rgb(195, 195, 195);
+  --color_secondary: #F9F8FD;
   --font_title: 1.5rem;
+  --font_05: 0.5rem;
   --font_1: 1rem;
   --font_1h: 1.5rem;
   --font_2: 2rem;
   --font_2h: 2.5rem;
 }
+
+.flex-x {display: flex; flex-direction: row;}

@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
-import Button from '../../components/Button/Button';
 import Cookies from 'universal-cookie';
 import axios from 'axios'
+import SideBar from './SideBar';
+import Content from './Content'
+import './Dashboard.scss'
 
 function Dashboard() {
     const cookies = new Cookies();
     const cancelToken = axios.CancelToken.source();
-
-    function LogoutFunction() {
-        cookies.set('TokenSaved', null, { path: '/' });
-        window.location.replace('/');
-    }
 
     useEffect(() => {
         var TokenSaved = cookies.get('TokenSaved');
@@ -32,12 +29,12 @@ function Dashboard() {
     
         return () => {cancelToken.cancel('Request cancelled');};
     }, [])
-    
-
+       
     return (
-        <Button className="logout"
-                onClick={LogoutFunction} 
-                label="Logout" />
+    <div className="">
+        <SideBar isOverview={true}/>
+        <Content />
+    </div>
     )
 }
 
