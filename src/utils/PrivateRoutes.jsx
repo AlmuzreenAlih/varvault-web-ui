@@ -31,6 +31,7 @@ function PrivateRoutes() {
       }
     };
     fetchData();
+    return () => {cancelToken.cancel('Request cancelled');};
   }, []);
 
   return loading ? null : tokenAuthenticated ? <Outlet /> : <Navigate to="/login" />;

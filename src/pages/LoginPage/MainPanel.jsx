@@ -104,7 +104,6 @@ function MainPanel() {
                     data: { username: inputValues.username, password: inputValues.password },
                     cancelToken: cancelToken.token,})
             .then((res) => {
-                console.log(res.data);
                 if (res.data['authenticated']) {
                     const cookies = new Cookies();
                     cookies.set('TokenSaved', res.data['token'], { path: '/' });
@@ -127,9 +126,9 @@ function MainPanel() {
             .then((res) => {
                 console.log(res.data);
                 if (res.data['authenticated']) {
-                    alert("Login Succesful");
-                } else {
-                    alert("Login wrong");
+                    const cookies = new Cookies();
+                    cookies.set('TokenSaved', res.data['token'], { path: '/' });
+                    window.location.replace('/');
                 }
             })
             .catch((err) => {
@@ -141,6 +140,7 @@ function MainPanel() {
                 }
             });
         }    
+        return () => {cancelToken.cancel('Request cancelled');};
     }
 
     function handlerRegisterSwitch(e) {
