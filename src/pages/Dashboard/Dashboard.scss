@@ -12,6 +12,14 @@
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
     z-index:100;
 
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    overflow: hidden;
+
     .logo-div {
         background-color: transparent;
         display: flex;
@@ -49,6 +57,29 @@
     }
 
     .selected {background-color: var(--color_theme2);}
+
+    .user-settings {
+        flex-basis: 100%; // Y - axis
+        width: 100%; //X - axis
+        
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        flex-direction: column;
+        margin-bottom: 20px;
+
+    }
+}
+
+.unit-symbol {
+    background-color: #FFEBB2;
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+    padding: 4px;
 }
 
 .ContentDiv {
@@ -74,10 +105,6 @@
     height: 100%;
 
     // border-radius: 16px;
-}
-
-.grid-div {
-    
 }
 
 .card {

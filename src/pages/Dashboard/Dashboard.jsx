@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie';
 import axios from 'axios'
-import SideBar from './SideBar';
+import Sidebar from './Sidebar';
 import Content from './Content'
 import './Dashboard.scss'
 
@@ -32,7 +32,7 @@ function Dashboard() {
        
     return (
     <div className="">
-        <SideBar isOverview={true}/>
+        <Sidebar isOverview={true}/>
         <Content />
     </div>
     )

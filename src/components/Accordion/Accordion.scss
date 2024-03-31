@@ -1,0 +1,38 @@
+.accordion {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    section {
+        background-color: var(--color_mode);
+        display: flex;
+        align-items: start;
+        justify-content: start;
+
+        padding-left: 14px;
+
+        z-index: 100;
+
+        position: relative;
+
+        cursor: pointer;
+    }
+
+    .content {
+        z-index: -1;
+        position: relative;
+        transition: transform 0.3s linear;
+    }
+
+    section > :nth-child(1) {
+        margin-right: 3px;
+    }
+    section > :nth-child(2) {
+        width: 100%;
+        text-align: start;
+        justify-content: start;
+    }
+    section > :nth-child(3) {
+        margin-right: 3px;
+    }
+}
+

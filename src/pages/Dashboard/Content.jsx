@@ -18,9 +18,9 @@ function Content() {
                 </Card>
                 <Card title="Variables">
                     <div className="variables-card">
-                    <Card title="Variable1" bg="#2C2775"></Card>
-                    <Card title="Variable1" bg="#2C2775"></Card>
-                    <Card title="Variable1" bg="#2C2775"></Card>
+                    <Card title="Variable1" bg="#d992f5"></Card>
+                    <Card title="Variable1" bg="#d992f5"></Card>
+                    <Card title="Variable1" bg="#d992f5"></Card>
                     </div>
                 </Card>
                 <Card title="Generated Tokens" >

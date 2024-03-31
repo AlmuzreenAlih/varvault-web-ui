@@ -32,5 +32,9 @@ button:hover {
 .logout {
     background-color: var(--color_logo);
     font-size: var(--font_1);
-    // width: 40px;
+    font-style: italic;
+    text-align: start;
+    padding-left: 45px;
+    transform: translate(45px,0);
+    width: 150px;
 }
