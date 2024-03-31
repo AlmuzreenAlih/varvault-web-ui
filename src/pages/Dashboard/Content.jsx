@@ -1,14 +1,23 @@
 import Card from './Card'
 
-function Content() {
+function Content(props) {
     return (
         <div className='ContentDiv'>
             {/* <div className="grid-div"> */}
-                <Card title="User Details">
-                    <p>fdgfd</p>
-                    <p>fdgfd</p>
-                    <p>fdgfd</p>
-                    <p>fdgfd</p>
+                <Card title="User Details" className="user-card">
+                    <section className='header'>
+                        <p>Account Creation</p>
+                        <p>Total Requests</p>
+                        <p>Variables Added</p>
+                        <p>Tokens Added</p>
+                    </section>
+
+                    <section className='body'>
+                        <p>{props.accountCreation}</p>
+                        <p>{props.logsList.length}</p>
+                        <p>{props.variablesList.length}</p>
+                        <p>{props.tokensList.length}</p>
+                    </section>
                 </Card>
                 <Card title="Logs" className="logs-card">
                     <p>fdgfd</p>

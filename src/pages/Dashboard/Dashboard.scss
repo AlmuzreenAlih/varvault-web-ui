@@ -85,26 +85,47 @@
 .ContentDiv {
     background-color: var(--color_secondary);
     position: absolute;
-    width: calc(100% - var(--SideBarWidth));
-
-    margin-left: var(--SideBarWidth);
-    padding: 14px;
-
     height: 100%;
+    width: calc(100% - var(--SideBarWidth));
+    padding: 25px;
+    margin-left: var(--SideBarWidth);
 
     font-size: 14px;
 
     display: grid;
-    grid-template-columns: 3fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr;
+    grid-template-rows: 1fr 4fr;
+    grid-gap: 13px;    
 
-    grid-gap: 13px;
+    .user-card {
+        grid-column: span 2;
+        .header {
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: start;
 
-    padding:25px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            // font-style: italic;
+            p {flex:1; text-align: center;}
+        }
 
-    height: 100%;
+        .body {
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: start;
 
-    // border-radius: 16px;
+            font-size: var(--font_1h);
+            font-weight: 500;
+            // font-style: italic;
+            p {flex:1; text-align: center;}
+        }
+    }
+    .logs-card {
+        grid-row: span 3;
+    }
 }
 
 .card {
@@ -146,10 +167,6 @@
     }
 
     overflow: hidden;
-}
-
-.logs-card {
-    grid-row: span 3;
 }
 
 .variables-card {
