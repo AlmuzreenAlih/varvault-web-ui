@@ -30,7 +30,7 @@ function Dashboard() {
         logsList: logsList,
         variablesList: variablesList, 
         tokensList: tokensList,
-      })
+    	})
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -47,9 +47,9 @@ function Dashboard() {
   <div className="">
     <Sidebar isOverview={true} />
     <Content accountCreation = {userDetails.created} 
-              logsList = {userDetails.logsList}
-              variablesList = {userDetails.variablesList}
-              tokensList = {userDetails.tokensList} />
+             logsList = {userDetails.logsList}
+             variablesList = {userDetails.variablesList}
+             tokensList = {userDetails.tokensList} />
   </div>
   )
 }
