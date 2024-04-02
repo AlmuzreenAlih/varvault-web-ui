@@ -4,7 +4,7 @@ export function formatDate(dateString) {
     return date.toLocaleString('en-US', options);
   };
 
-  export function calculateTimeElapsed(initialDateTimeString) {
+  export function Elapsed(initialDateTimeString) {
     // Convert the initial date string to a Date object
     const initialDateTime = new Date(initialDateTimeString);
   

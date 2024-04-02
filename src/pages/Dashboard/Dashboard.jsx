@@ -10,9 +10,10 @@ function Dashboard() {
   const cancelToken = axios.CancelToken.source();
   const [userDetails, setuserDetails] = useState({
     created: "",
-    logsList: "",
     variablesList: "",
     tokensList: "",
+    logsList: "",
+    cnts: []
   })
   useEffect(() => {
     var TokenSaved = cookies.get('TokenSaved');
@@ -22,14 +23,12 @@ function Dashboard() {
             data: { token: TokenSaved },
             cancelToken: cancelToken.token,})
     .then((res) => {
-      const tokensList = res.data['tokens'];
-      const variablesList = res.data['variables'];
-      const logsList = res.data['logs'];
       setuserDetails({ ...userDetails, 
         created: res.data['created_at'],
-        logsList: logsList,
-        variablesList: variablesList, 
-        tokensList: tokensList,
+        variablesList: res.data['variables'], 
+        tokensList: res.data['tokens'],
+        logsList: res.data['logs'],
+        cnts: [res.data['cnt_variables'],res.data['cnt_tokens'],res.data['cnt_logs']]
     	})
     })
     .catch((err) => {
@@ -49,7 +48,8 @@ function Dashboard() {
     <Content accountCreation = {userDetails.created} 
              logsList = {userDetails.logsList}
              variablesList = {userDetails.variablesList}
-             tokensList = {userDetails.tokensList} />
+             tokensList = {userDetails.tokensList} 
+             cnts = {userDetails.cnts}/>
   </div>
   )
 }

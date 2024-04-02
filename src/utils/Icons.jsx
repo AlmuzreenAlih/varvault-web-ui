@@ -53,6 +53,14 @@ export function Temperature(props) {
     )
 }
 
+export function Account(props) {
+    return (
+        <div style={{ backgroundColor: props.bg }} className="unit-symbol">
+            A
+        </div>
+    )
+}
+
 export function Default(props) {
     return (
         <div style={{ backgroundColor: props.bg }} className="unit-symbol">

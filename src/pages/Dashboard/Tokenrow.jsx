@@ -7,13 +7,13 @@ function Tokenrow(props) {
         const timeRem = calculateTimeRemaining(props.created_at);
         console.log(timeRem)
         let [days, hrs, mins, secs] = timeRem;
-        setTimeRemaining(days + " days " + hrs + " hours " + mins + " mins " + secs + " secs"|| "");
+        setTimeRemaining(days + " days " + hrs + " hours " + mins + " mins " + secs + " secs");
     }, [props.created_at]);
 
     useEffect(() => {
         const interval = setInterval(() => {
             const timeRem = calculateTimeRemaining(props.created_at);
-            console.log(timeRem)
+            // console.log(timeRem)
             let [days, hrs, mins, secs] = timeRem;
             setTimeRemaining(days + " days " + hrs + " hours " + mins + " mins " + secs + " secs"|| "");
         }, 1000); // 1000 milliseconds (1 second) interval
