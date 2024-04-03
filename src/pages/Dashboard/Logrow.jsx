@@ -2,55 +2,54 @@ import { useState } from 'react'
 import { Account } from '../../utils/Icons.jsx';
 import { Elapsed, calculateTimeRemaining } from '../../utils/timeUtils.js'
 function Logrow(props) {
-    function TimeElapsed({ created_at }) {
-        const elapsed = Elapsed(created_at); // Assuming Elapsed is a function that calculates the elapsed time
-    
-        // Determine the appropriate message based on the elapsed time
-        let message = '';
-        if (elapsed[0] === 0 && elapsed[1] === 0 && elapsed[2] === 0) {
-            message = 'Just Now';
-        } else if (elapsed[0] === 0 && elapsed[1] === 0) {
-            message = `${elapsed[2]} minute${elapsed[2] > 1 ? 's' : ''} ago`;
-        } else if (elapsed[0] === 0) {
-            message = `${elapsed[1]} hour${elapsed[1] > 1 ? 's' : ''} ago`;
-        } else {
-            message = `${elapsed[0]} day${elapsed[0] > 1 ? 's' : ''} ago`;
-        }
-    
-        return <p>{message}</p>;
-    }
-    
-    function LogConstruct(props) {
-        return(
-            <div className='logs-row'>
-                { props.opCat === "acc_reg" && 
-                    <>  <Account />
-                        <div className='msg'>
-                            <p>You registered your account to VarVault Web UI.</p>
-                            <TimeElapsed created_at={props.created_at}/>
-                        </div>
-                    </>
-                }
+  function TimeElapsed({ created_at }) {
+    const elapsed = Elapsed(created_at);
 
-                { props.opCat === "acc_log" && 
-                    <>  <Account />
-                        <div className='msg'>
-                            <p>You logged in to your account to Var&shy;Vault Web UI.</p>
-                            <TimeElapsed created_at={props.created_at}/>
-                        </div>
-                    </>
-                }
-            </div>
-        )
+    let message = '';
+    if (elapsed[0] === 0 && elapsed[1] === 0 && elapsed[2] === 0) {
+      message = 'Just Now';
+    } else if (elapsed[0] === 0 && elapsed[1] === 0) {
+      message = `${elapsed[2]} minute${elapsed[2] > 1 ? 's' : ''} ago`;
+    } else if (elapsed[0] === 0) {
+      message = `${elapsed[1]} hour${elapsed[1] > 1 ? 's' : ''} ago`;
+    } else {
+      message = `${elapsed[0]} day${elapsed[0] > 1 ? 's' : ''} ago`;
     }
-    return (
-        <>
-            { props.category === "account" ? 
-                props.operation === "register" ? <LogConstruct opCat="acc_reg" created_at={props.created_at}/> : 
-                props.operation === "login" ? <LogConstruct opCat="acc_log" created_at={props.created_at}/> : null
-            : null }
-        </>
+
+    return <p>{message}</p>;
+  }
+    
+  function LogConstruct(props) {
+    return(
+      <div className='logs-row'>
+        { props.opCat === "acc_reg" && 
+          <>  <Account id={props.id}/>
+            <div className='msg'>
+              <p>You registered your account to VarVault Web UI.</p>
+              <TimeElapsed created_at={props.created_at}/>
+            </div>
+          </>
+        }
+
+        { props.opCat === "acc_log" && 
+          <>  <Account id={props.id}/>
+            <div className='msg'>
+              <p>You logged in to your account to Var&shy;Vault Web UI.</p>
+              <TimeElapsed created_at={props.created_at}/>
+            </div>
+          </>
+        }
+      </div>
     )
+  }
+  return (
+    <>
+      { props.category === "account" ? 
+        props.operation === "register" ? <LogConstruct id={props.id} opCat="acc_reg" created_at={props.created_at}/> : 
+        props.operation === "login" ? <LogConstruct id={props.id} opCat="acc_log" created_at={props.created_at}/> : null
+      : null }
+    </>
+  )
 }
 
 export default Logrow;

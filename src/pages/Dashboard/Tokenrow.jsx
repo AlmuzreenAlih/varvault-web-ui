@@ -5,7 +5,6 @@ function Tokenrow(props) {
 
     useEffect(() => {
         const timeRem = calculateTimeRemaining(props.created_at);
-        console.log(timeRem)
         let [days, hrs, mins, secs] = timeRem;
         setTimeRemaining(days + " days " + hrs + " hours " + mins + " mins " + secs + " secs");
     }, [props.created_at]);
