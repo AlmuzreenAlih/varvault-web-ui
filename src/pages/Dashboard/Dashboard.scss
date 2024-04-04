@@ -79,11 +79,15 @@
     border-radius: 50%;
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
     padding: 4px;
-
+    
     background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    i {
+        font-size: 1.25rem;
+    }
 }
 
 .ContentDiv {
@@ -285,7 +289,7 @@
         .tokens-part {
             flex-basis: 100%;
             width: 100%;
-            overflow: hidden;
+            overflow: auto;
 
             .token-row {
                 background-color: transparent;
@@ -295,12 +299,16 @@
 
                 padding-top: 5px;
                 padding-bottom: 20px;
-                padding-inline: 10px;
+                padding-inline: 8px;
 
                 width: 100%;
 
                 .id {
-                    padding-right: 16px;
+                    padding-right: 10px;
+                }
+
+                .details {
+                    margin-left:10px;
                 }
 
                 .token {
@@ -310,7 +318,7 @@
                 }
 
                 .time-left {
-                    font-size: 0.70rem;
+                    font-size: 0.6rem;
                     font-style: italic;
                 }
             }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Pressure, Temperature, Default } from '../../utils/Icons.jsx';
+import { Pressure, Temperature, Weight, Default } from '../../utils/Icons.jsx';
 import { isPressure, isTemperature } from '../../utils/icons.js';
 import { formatDate } from '../../utils/timeUtils.js';
 function Variablerow(props) {

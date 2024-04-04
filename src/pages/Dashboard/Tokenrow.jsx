@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { calculateTimeRemaining } from '../../utils/timeUtils.js'
+import { TokenIcon } from '../../utils/Icons.jsx';
+
 function Tokenrow(props) {
     const [timeRemaining, setTimeRemaining] = useState("");
 
@@ -22,8 +24,8 @@ function Tokenrow(props) {
 
     return (
         <div className="token-row">
-            <p className="id">{props.id}</p>
-            <div>
+            <TokenIcon id={props.id}/>
+            <div className='details'>
                 <p className="token">{props.token}</p>
                 <p className="time-left">Expires in {timeRemaining}</p>
             </div>

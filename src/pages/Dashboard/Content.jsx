@@ -26,14 +26,22 @@ function Content(props) {
 	
 	// VARIABLE LIST
 	const [variablesList, setVariablesList] = useState([]);
+  const [variablesCursor, setVariablesCursor] = useState(0);
 	useEffect(() => {
-		setVariablesList(props.variablesList || []);
+    if (props.variablesList) {
+      setVariablesList(props.variablesList);
+      setVariablesCursor(props.variablesList[props.variablesList.length-1].id)
+    }
 	}, [props.variablesList]); // Update variableList when props.variablesList changes
 
   // TOKENS LIST
-  const [tokensList, setTokenList] = useState([]);
+  const [tokensList, setTokensList] = useState([]);
+  const [tokensCursor, setTokensCursor] = useState(0);
   useEffect(() => {
-    setTokenList(props.tokensList || []);
+    if (props.tokensList) {
+      setTokensList(props.tokensList);
+      setTokensCursor(props.tokensList[props.tokensList.length-1].id)
+    }
   }, [props.tokensList]); // Update variableList when props.variablesList changes
 
   // LOGS LIST
@@ -41,8 +49,8 @@ function Content(props) {
   const [logsCursor, setLogsCursor] = useState(0);
   useEffect(() => {
     if (props.logsList) {
-      setLogsList(props.logsList.sort((a,b)=>b.id-a.id));
-      setLogsCursor(props.logsList.sort((a,b)=>b.id-a.id)[props.logsList.length-1].id);
+      setLogsList(props.logsList);
+      setLogsCursor(props.logsList[props.logsList.length-1].id);
     }
   }, [props.logsList]); // Update variableList when props.variablesList changes
 
@@ -50,31 +58,78 @@ function Content(props) {
   const loader_var = useRef(null);
   const loader_tok = useRef(null);
   const loader_log = useRef(null);
-  const logsScrollTimer = useRef(null);
 
   // SCROLL HANDLERS
+  const variablesScrollTimer = useRef(null);
+  const tokensScrollTimer = useRef(null);
+  const logsScrollTimer = useRef(null);
+  function Handler_Scroll_Variables() {
+    var var_div = loader_var.current.parentNode;
+    if ((var_div.clientHeight  + var_div.scrollTop >= var_div.scrollHeight - 30) && ((variablesList.length < countings.variables))) {
+      loader_var.current.style.visibility = "visible";  
+      clearTimeout(variablesScrollTimer.current)
+      variablesScrollTimer.current = setTimeout(() => {
+        axios({ url: 'http://127.0.0.1:3000/private/get-variables', 
+                method: 'post',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: { token:cookies.get('TokenSaved') , cursor: variablesCursor },
+                cancelToken: cancelToken.token})
+        .then((res) => {
+          const variablesToAdd = res.data['variables'];
+          var_div.scrollTop = var_div.scrollTop - 50;
+          setVariablesList((prev) => [...prev, ...variablesToAdd]);
+          setVariablesCursor(variablesToAdd[variablesToAdd.length - 1].id);
+          loader_var.current.style.visibility = "hidden";
+        })
+        .catch((err) => { if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
+                          else {alert("Cannot parse the next 10 logs.");}})
+      }, 500);
+    }
+  }
+  function Handler_Scroll_Tokens() {
+    var tok_div = loader_tok.current.parentNode;
+    if ((tok_div.clientHeight  + tok_div.scrollTop >= tok_div.scrollHeight - 30) && ((tokensList.length < countings.tokens))) {
+      loader_tok.current.style.visibility = "visible";  
+      clearTimeout(tokensScrollTimer.current)
+      tokensScrollTimer.current = setTimeout(() => {
+        axios({ url: 'http://127.0.0.1:3000/private/get-tokens', 
+                method: 'post',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: { token:cookies.get('TokenSaved') , cursor: tokensCursor },
+                cancelToken: cancelToken.token})
+        .then((res) => {
+          const tokensToAdd = res.data['tokens'];
+          tok_div.scrollTop = tok_div.scrollTop - 50;
+          setTokensList((prev) => [...prev, ...tokensToAdd]);
+          setTokensCursor(tokensToAdd[tokensToAdd.length - 1].id);
+          loader_tok.current.style.visibility = "hidden";
+        })
+        .catch((err) => { if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
+                          else {alert("Cannot parse the next 10 logs.");}})
+      }, 500);
+    }
+  }
   function Handler_Scroll_logs() {
     var log_div = loader_log.current.parentNode;
-    if (logsList.length < countings.logs) {
-      if (log_div.clientHeight  + log_div.scrollTop >= log_div.scrollHeight - 30) {
-        loader_log.current.style.visibility = "visible";  
-        clearTimeout(logsScrollTimer.current)
-        logsScrollTimer.current = setTimeout(() => {
-          axios({ url: 'http://127.0.0.1:3000/private/get-logs', method: 'post',
-                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                  data: { token:cookies.get('TokenSaved') , cursor: logsCursor },
-                  cancelToken: cancelToken.token})
-          .then((res) => {
-            const logsToAdd = res.data['logs'].sort((a, b) => b.id - a.id);
-            log_div.scrollTop = log_div.scrollTop - 50;
-            setLogsList((prev) => [...prev, ...logsToAdd]);
-            setLogsCursor(logsToAdd[logsToAdd.length - 1].id);
-            loader_log.current.style.visibility = "hidden";
-          })
-          .catch((err) => { if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
-                            else {alert("wrong2");}})
-        }, 1000);
-      }
+    if ((log_div.clientHeight  + log_div.scrollTop >= log_div.scrollHeight - 30) && ((logsList.length < countings.logs))) {
+      loader_log.current.style.visibility = "visible";  
+      clearTimeout(logsScrollTimer.current)
+      logsScrollTimer.current = setTimeout(() => {
+        axios({ url: 'http://127.0.0.1:3000/private/get-logs', 
+                method: 'post',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: { token:cookies.get('TokenSaved') , cursor: logsCursor },
+                cancelToken: cancelToken.token})
+        .then((res) => {
+          const logsToAdd = res.data['logs'];
+          log_div.scrollTop = log_div.scrollTop - 50;
+          setLogsList((prev) => [...prev, ...logsToAdd]);
+          setLogsCursor(logsToAdd[logsToAdd.length - 1].id);
+          loader_log.current.style.visibility = "hidden";
+        })
+        .catch((err) => { if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
+                          else {alert("Cannot parse the next 10 logs.");}})
+      }, 500);
     }
   }
 
@@ -91,9 +146,9 @@ function Content(props) {
 
         <section className='body'>
           <p>{props.accountCreation}</p>
-          <p>{props.logsList.length}</p>
-          <p>{props.variablesList.length}</p>
-          <p>{props.tokensList.length}</p>
+          <p>{countings.logs}</p>
+          <p>{countings.variables}</p>
+          <p>{countings.tokens}</p>
         </section>
       </UserCard>
 
@@ -106,19 +161,16 @@ function Content(props) {
                       operation={Logg.operation}
                       category={Logg.category}
                       created_at={Logg.created_at}
-                      // operation={Logg.operation}
-                      // operation={Logg.operation}
-                      // operation={Logg.operation}
                       />
           ))}
           <div ref={loader_log} style={{visibility: "hidden"}} className="loader"><span></span></div>
         </div>
-        <p className='view-all'>View All</p>
+        {/* <p className='view-all'>View All</p> */}
       </LogsCard>
 
       <VariablesCard title="Variables" className="variables-card">
         <strong className="title">Variables ({variablesList.length}/{countings.variables})</strong>
-        <div className="variable-part">
+        <div className="variable-part" onScroll={Handler_Scroll_Variables}>
           {variablesList.sort((a, b) => a.id - b.id).map((Var, index) => (
               <Variablerow key={index} unit={Var.unit} 
                   variable_name={Var.variable_name} value={Var.value + " " + Var.unit}
@@ -127,20 +179,20 @@ function Content(props) {
                   letter = {Var.variable_name.substring(0, 1)}
                   />
           ))}
-          <div ref={loader_var} style={{visibility: true}} className="loader"><span></span></div>
+          <div ref={loader_var} style={{visibility: "visible"}} className="loader"><span></span></div>
         </div>
-        <p className='view-all'>View All</p>
+        {/* <p className='view-all'>View All</p> */}
       </VariablesCard>
       
       <TokensCard className="tokens-card">
         <strong className="title">Generated Tokens ({tokensList.length}/{countings.tokens})</strong>
-        <div className="tokens-part">
-          {tokensList.slice(0, 5).map((Tok, index) => (
+        <div className="tokens-part" onScroll={Handler_Scroll_Tokens}>
+          {tokensList.map((Tok, index) => (
               <Tokenrow key={index} id = {index + 1} token={Tok.token} created_at={Tok.created_at} />
           ))}
-          <div ref={loader_tok} style={{visibility: true}} className="loader"></div>
+          <div ref={loader_tok} style={{visibility: "visible"}} className="loader"><span></span></div>
         </div>
-        <p className='view-all'>View All</p>
+        {/* <p className='view-all'>View All</p> */}
       </TokensCard>
     </div>
   )

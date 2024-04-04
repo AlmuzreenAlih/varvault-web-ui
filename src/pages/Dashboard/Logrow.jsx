@@ -23,7 +23,7 @@ function Logrow(props) {
     return(
       <div className='logs-row'>
         { props.opCat === "acc_reg" && 
-          <>  <Account id={props.id}/>
+          <>  <Account id={props.id} char="person_add"/>
             <div className='msg'>
               <p>You registered your account to VarVault Web UI.</p>
               <TimeElapsed created_at={props.created_at}/>
@@ -32,7 +32,7 @@ function Logrow(props) {
         }
 
         { props.opCat === "acc_log" && 
-          <>  <Account id={props.id}/>
+          <>  <Account id={props.id} char="assignment_ind"/>
             <div className='msg'>
               <p>You logged in to your account to Var&shy;Vault Web UI.</p>
               <TimeElapsed created_at={props.created_at}/>
