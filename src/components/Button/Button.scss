@@ -38,3 +38,27 @@ button:hover {
     transform: translate(45px,0);
     width: 150px;
 }
+
+.edit, .delete {
+    font-size: 0.9rem;
+    width:60px;
+    margin-inline: 4px;
+    margin-bottom: 0px;
+    padding: 4px;
+    border: 0;
+}
+
+.cancel, .save {
+    font-size: 1rem;
+    font-weight: 500;
+    width:100px;
+    margin-inline: 4px;
+    margin-bottom: 0px;
+    padding: 6px;
+    border: 0;
+}
+
+.edit  {background-color: #5356FF;}
+.delete {background-color: #A0153E;}
+.cancel {background-color: gray;}
+.save {background-color: #496989;}

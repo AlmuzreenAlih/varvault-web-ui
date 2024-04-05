@@ -169,8 +169,7 @@ function MainPanel() {
         <br />
         
         <Input name="username" hint="Username" 
-                onChange={e=>{handlerInputChanged(e)}} 
-                checker="http://127.0.0.1:3000/private/username-check" />
+               onChange={e=>{handlerInputChanged(e)}}/>
         
         <Checker message={LoginCheckMsg['msg']} 
                  symbol={LoginCheckMsg['sym']} 
@@ -180,7 +179,8 @@ function MainPanel() {
                 hint="Password" 
                 onChange={e=>handlerInputChanged(e)} 
                 type="password" />
-                <br />
+                
+        <span className='pbrk'></span>
         
         <Input style={!registering ? {visibility: "hidden", position: "absolute"} : null}
                 name="password_confirm" 

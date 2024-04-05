@@ -39,7 +39,7 @@ function Input(props) {
   }
 
   return (
-    <div {...props} className='parent' onClick={(e)=>handleInputBoxClick(e)}>
+    <div {...props} className={'parent ' + props.className} onClick={(e)=>handleInputBoxClick(e)}>
       <div className="input-box">
         <input {...props} ref={input} 
                           className='input'

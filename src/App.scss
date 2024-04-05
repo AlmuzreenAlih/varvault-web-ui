@@ -32,3 +32,17 @@ html {
 }
 
 .flex-x {display: flex; flex-direction: row;}
+
+.pbrk {
+  font-size: 1.5rem;
+  height: 1.6rem;
+}
+
+.hidden {
+  position: absolute;
+  visibility: hidden;
+}
+
+.vanished {
+  z-index: -100;
+}

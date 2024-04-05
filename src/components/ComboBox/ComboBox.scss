@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
 }
-.input-box {
+.select-box {
     border: 1px solid #cecece;
     border-radius: 4px;
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
@@ -26,11 +26,10 @@
     background-color: transparent;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-inline: 10px;
+    justify-content: start;
+    flex-direction: column;
 }
 .input {
-  background-color: transparent;
     position: relative;
     width: 100%;
     font-size: 1rem;
@@ -57,21 +56,6 @@
 .placeholder2 {
     top: 0%;
 
-}
-
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  display: none;
-}
-
-input[type="password"]::-webkit-contacts-auto-fill-button {
-  display: none;
-}
-
-input[type="password"]::-webkit-inner-spin-button,
-input[type="password"]::-webkit-outer-spin-button {
-  appearance: none;
-  margin: 0;
 }
 
 span {

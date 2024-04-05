@@ -1,4 +1,4 @@
-import './Dashboard.scss'
+import './Sidebar.scss'
 import Button from '../../components/Button/Button';
 import Cookies from 'universal-cookie';
 import Accordion from '../../components/Accordion/Accordion';
@@ -17,8 +17,8 @@ function Sidebar(props) {
         <p>VarVault Web UI</p>
       </div>
 
-      <a className={props.isOverview ? "selected" : null} href=""><i className="material-symbols-outlined">grid_view</i>Overview</a>
-      <a className={props.isVariables ? "selected" : null} href=""><i className="material-symbols-outlined">format_list_numbered</i>Variables</a>
+      <a className={props.isOverview ? "selected" : null} href="/"><i className="material-symbols-outlined">grid_view</i>Overview</a>
+      <a className={props.isVariables ? "selected" : null} href="/variables"><i className="material-symbols-outlined">format_list_numbered</i>Variables</a>
       <a className={props.isTokens ? "selected" : null} href=""><i className="material-symbols-outlined">poker_chip</i>Tokens</a>
       <a className={props.isLogs ? "selected" : null} href=""><i className="material-symbols-outlined">breaking_news_alt_1</i>Logs</a>
 

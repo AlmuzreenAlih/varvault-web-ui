@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie';
 import axios from 'axios'
-import Sidebar from './Sidebar';
+import Sidebar from '../common/Sidebar';
 import Content from './Content'
 import './Dashboard.scss'
 

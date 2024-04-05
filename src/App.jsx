@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage/LoginPage'
 import PrivateRoutes from './utils/PrivateRoutes'
 import Dashboard from './pages/Dashboard/Dashboard'
+import VariablesPage from './pages/VariablesPage/VariablesPage'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
             <Route path='/' element={<Dashboard />} />
+            <Route path='/variables' element={<VariablesPage />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
       </Routes>

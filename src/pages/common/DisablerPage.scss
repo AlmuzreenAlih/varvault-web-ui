@@ -1,0 +1,11 @@
+.DisablerPage {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: white, $alpha: 0.25);
+    backdrop-filter: blur(10px);
+
+    position: absolute;
+    top: 0; left: 0;
+
+    z-index: 900;
+}

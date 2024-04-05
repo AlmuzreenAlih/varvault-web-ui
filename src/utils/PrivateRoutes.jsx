@@ -14,7 +14,7 @@ function PrivateRoutes() {
         const cookies = new Cookies();
         var TokenSaved = cookies.get('TokenSaved');
         if (TokenSaved == undefined) {TokenSaved="tokenNotSavedYet";}
-        alert("TokenSave: "+TokenSaved);
+        // alert("TokenSave: "+TokenSaved);
         const res = await axios({url: 'http://127.0.0.1:3000/private/auth',
                                  method: 'post',
                                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
