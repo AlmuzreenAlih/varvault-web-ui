@@ -4,12 +4,15 @@ import { useState, useEffect, useRef } from 'react'
 import VariablesCard from './VariablesCard';
 import VariableRow from './VariableRow';
 import DisablerPage from '../common/DisablerPage';
+import Pagination from '@mui/material/Pagination';
+import Button from '../../components/Button/Button';
 
 function VariablesContent(props) {
 	const cookies = new Cookies();
 	const cancelToken = axios.CancelToken.source();
   const colorArray = ["#8B93FF","#E9A89B","#D875C7","#90D26D","#FFEBB2",];
-
+  const pagination = useRef(null);
+  
 	// COUNTINGS
 	const [countings, setCountings] = useState({
 		variables: 0,
@@ -58,11 +61,11 @@ function VariablesContent(props) {
       }, 500);
     }
   }
-
+  function handleChange(e) {console.log(e);}
   return (
     <div className='VariablesContentDiv'>
       <VariablesCard title="Variables" className="variables-card">
-        <strong className="title">Variables ({variablesList.length}/{countings.variables})</strong>
+        <strong className="title">Variables ({variablesList.length}/{countings.variables}) </strong>
         <div className="variable-part" onScroll={Handler_Scroll_Variables}>
           <div className="variable-row header">
             <div className='col1'><input type="checkbox" /></div>
@@ -84,11 +87,22 @@ function VariablesContent(props) {
                   bg = {colorArray[index % colorArray.length]}
                   letter = {Var.variable_name.substring(0, 1)}
                   showEditPanel={props.showEditPanel}
+                  deleteVariable={props.deleteVariable}
                   />
           ))}
           {/* <div ref={loader_var} style={{visibility: "visible"}} className="loader"><span></span></div> */}
         </div>
-        {/* <p className='view-all'>View All</p> */}
+        <div className='view-all'>
+          <div className="button"></div>
+          <Pagination count={Math.ceil(countings.variables/10)} 
+                      defaultPage={1}hahaha
+                      page={1} onChange={handleChange}
+                      color="primary" size="small" />
+          <div className="button">
+            <Button onClick={props.showAddPanel} label="+ New Variable"></Button>
+          </div>
+        </div>
+        
       </VariablesCard>
     </div>
   )

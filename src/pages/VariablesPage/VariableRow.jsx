@@ -5,8 +5,6 @@ import { formatDate } from '../../utils/timeUtils.js';
 import Button from '../../components/Button/Button';
 
 function VariableRow(props) {
-    function LogoutFunction() {
-    }
     return (
         <div className="variable-row content">
             <div className='col1'><input type="checkbox" /></div>
@@ -23,11 +21,11 @@ function VariableRow(props) {
             <div className='col6'>
                 <Button style={{}} 
                     className="edit"
-                    onClick={(e)=>{props.showEditPanel(e, props.id,props.variable_name, props.variable_value,props.variable_type,props.variable_unit)}} 
+                    onClick={()=>{props.showEditPanel(props.id,props.variable_name, props.variable_value,props.variable_type,props.variable_unit)}} 
                     label="Edit" />
                 <Button style={{}} 
                     className="delete"
-                    onClick={LogoutFunction} 
+                    onClick={()=>{props.deleteVariable(props.id)}} 
                     label="Delete" />
             </div>
         </div>

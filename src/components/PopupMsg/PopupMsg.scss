@@ -1,0 +1,21 @@
+.popup-msg {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    z-index: 1100;
+
+    border: 0px solid #888;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+
+    background-color: rgba(#df3677, 0.75);
+    color: white;
+    padding-inline: 20px;
+    padding-block: 5px;
+
+    transition: opacity 0.1s linear;
+    font-size: 1.2rem;
+    font-style: normal;
+    // width:200px;
+}

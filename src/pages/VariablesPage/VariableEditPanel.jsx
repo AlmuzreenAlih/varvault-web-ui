@@ -4,6 +4,8 @@ import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import ComboBox from '../../components/ComboBox/ComboBox';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+
 function VariableEditPanel(props) {
     useEffect(() => {
       console.log(props.editInputValues)
@@ -12,50 +14,54 @@ function VariableEditPanel(props) {
         const { name, value } = e.target;
         props.setEditInputValues({ ...props.editInputValues, [name]: value });
     }
-    return (
-        <form ref={props.forwardedRef} className={"edit-panel " + props.className}>
-            <section>Edit Variable</section>
+    function handlerTypeChanged(e) {
+        props.setEditInputValues({ ...props.editInputValues, variable_type: e.target.innerHTML })
+    }
+    return (<>
+        { props.editingMode && <form ref={props.forwardedRef} className={"edit-panel " + props.className}>
+            <section>{props.editingMode}</section>
 
             <span className='pbrk'></span>
 
             <Input name="variable_id" hint="" className="hidden"/>
 
-            <Input name="variable_name" hint="Name" value={props.editInputValues.variable_name}
-                   onChange={e=>{handlerInputChanged(e)}}/>
+            <TextField name="variable_name" label="Name" value={props.editInputValues.variable_name}
+                   onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'
+                   className='heightInput'/>
 
             <span className='pbrk'></span>
 
-            <Input name="variable_value" hint="Value" 
-                   onChange={e=>{handlerInputChanged(e)}}/>
-
+            <TextField name="variable_value" label="Value" value={props.editInputValues.variable_value}
+                   onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
+                   
             <span className='pbrk'></span>
 
-            <ComboBox name="variable_type" hint="Type" 
-                onChange={e=>{handlerInputChanged(e)}}>
-                <option value="numeric">Numeric</option>
-                <option value="text">Text</option>
-                <option value="boolean">Boolean</option>
-            </ComboBox>
+            <Autocomplete
+                disablePortal
+                options={["","numeric","text","boolean"]}
+                sx={{width: "100%"}} size='small'
+                renderInput={(params) => <TextField {...params} name="variable_type" label="Type" />}
+                value={props.editInputValues.variable_type} onChange={e=>{handlerTypeChanged(e)}}
+            />
 
             <span className='pbrk'></span>
-            {/* <TextField id="outlined-basic" label="unit" variant="outlined" /> */}
-            <Input name="variable_unit" hint="Unit" 
-                onChange={e=>{handlerInputChanged(e)}}/>
+            <TextField name="variable_unit" label="Unit" value={props.editInputValues.variable_unit}
+                   onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
 
             <span className='pbrk'></span>
 
             <section className='buttons'>
                 <Button style={{}} 
                     className="cancel"
-                    onClick={props.hidePanels} 
+                    onClick={(e)=>{e.preventDefault(); props.setEditingMode(false);}} 
                     label="Cancel" />
                 <Button style={{}} 
                     className="save"
-                    onClick={(e)=>{props.hidePanels(e, )}} 
+                    onClick={(e)=>{props.saveEditing(e)}} 
                     label="Save" />
             </section>
-        </form>
-    )
+        </form>}
+    </>)
 }
 
 export default VariableEditPanel;

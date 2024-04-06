@@ -1,82 +1,86 @@
 .parent {
-    background-color: green;
+  background-color: green;
 
-    width: 90%;
-    
+  width: 90%;
+  
 
-    position: relative;
+  position: relative;
 
-    overflow-x: hidden;
+  overflow-x: hidden;
 
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .input-box {
-    border: 1px solid #cecece;
-    border-radius: 4px;
-    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
-    position: relative;
+  border: 1px solid #cecece;
+  border-radius: 4px;
+  box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+  position: relative;
 
-    width: 100%;
-    height: 2rem;
+  width: 100%;
+  height: 2rem;
 
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-inline: 10px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 10px;
 }
 .input {
-  background-color: transparent;
-    position: relative;
-    width: 100%;
-    font-size: 1rem;
+  position: relative;
+  width: 100%;
+  font-size: 1rem;
 
-    border: 0;
+  border: 0;
 
-    outline: none;
+  outline: none;
 
-    z-index: 0;
+  z-index: 0;
 }
 
 .placeholder {
-    position: absolute;
-    top: 50%;
+  position: absolute;
+  top: 50%;
 
-    transform: translateY(-50%);
-    color: #969696;
+  transform: translateY(-50%);
+  color: #969696;
 
-    z-index: -10;
+  z-index: 10;
 
-    transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 
 .placeholder2 {
-    top: 0%;
+  top: 0%;
 
 }
 
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
-  display: none;
+display: none;
 }
 
 input[type="password"]::-webkit-contacts-auto-fill-button {
-  display: none;
+display: none;
 }
 
 input[type="password"]::-webkit-inner-spin-button,
 input[type="password"]::-webkit-outer-spin-button {
-  appearance: none;
-  margin: 0;
+appearance: none;
+margin: 0;
+}
+
+.availability {
+position: relative;
 }
 
 span {
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+background-color: transparent;
+display: flex;
+align-items: center;
+justify-content: center;
+// flex-direction: column;
 }

@@ -20,6 +20,7 @@
         height: 100%;
         border-radius: 8px;
         padding:15px;
+        padding-bottom: 9px;
         box-shadow: 1px 3px 10px 0 rgba(0,0,0,0.5);
     
         .title {
@@ -90,6 +91,26 @@
                 }
             }
             
+        }
+        .view-all {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 9px;
+            margin-top: 9px;
+            border-top: 1px solid #888;
+            .button {
+                width:20%;
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                padding-right: 20px;
+
+                button {
+                    background-color: #86469C;
+                }
+            }
         }
     }
 }
