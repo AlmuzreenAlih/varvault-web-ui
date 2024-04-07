@@ -21,11 +21,16 @@ function VariablesPage() {
     cnts: []
   })
   const [toSave, setToSave] = useState(false);
+  const [page, setPage] = useState(1) // Pagination
+  const [order_by, setOrder_by] = useState("id") // Order by column
+  const [order, setOrder] = useState(true) // true is DESC and false is ASC
   useEffect(() => {
     axios({ url: 'http://127.0.0.1:3000/private/get-all',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
-            data: { token: cookies.get('TokenSaved') },
+            data: { token: cookies.get('TokenSaved'), 
+                    page: page , target:"variable",
+                    order_by: order_by, order: order}, 
             cancelToken: cancelToken.token,})
     .then((res) => {
       setuserDetails({ ...userDetails, 
@@ -45,7 +50,7 @@ function VariablesPage() {
     });
     console.log("Init")
     return () => {cancelToken.cancel('Request cancelled');};
-  }, [toSave])
+  }, [toSave,page,order_by,order])
 
   // Editing
   const [editingMode, setEditingMode] = useState(false); //To Show the editing dialog
@@ -189,6 +194,10 @@ function VariablesPage() {
                       showEditPanel={showEditPanel}
                       deleteVariable= {deleteVariable}
                       showAddPanel={showAddPanel}
+
+                      page={page} setPage={setPage}
+                      order_by={order_by} setOrder_by={setOrder_by}
+                      order={order} setOrder={setOrder}
                       />
   </div>
   )
