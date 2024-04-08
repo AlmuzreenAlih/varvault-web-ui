@@ -65,6 +65,7 @@ function Content(props) {
   const logsScrollTimer = useRef(null);
   function Handler_Scroll_Variables() {
     var var_div = loader_var.current.parentNode;
+    console.log(variablesList.length, countings.variables)
     if ((var_div.clientHeight  + var_div.scrollTop >= var_div.scrollHeight - 30) && ((variablesList.length < countings.variables))) {
       loader_var.current.style.visibility = "visible";  
       clearTimeout(variablesScrollTimer.current)
@@ -171,7 +172,7 @@ function Content(props) {
       <VariablesCard title="Variables" className="variables-card">
         <strong className="title">Variables ({variablesList.length}/{countings.variables})</strong>
         <div className="variable-part" onScroll={Handler_Scroll_Variables}>
-          {variablesList.sort((a, b) => a.id - b.id).map((Var, index) => (
+          {variablesList.map((Var, index) => (
               <Variablerow key={index} unit={Var.unit} 
                   variable_name={Var.variable_name} value={Var.value + " " + Var.unit}
                   updated_at={Var.updated_at}
@@ -179,7 +180,7 @@ function Content(props) {
                   letter = {Var.variable_name.substring(0, 1)}
                   />
           ))}
-          <div ref={loader_var} style={{visibility: "visible"}} className="loader"><span></span></div>
+          <div ref={loader_var} style={{visibility: "hidden"}} className="loader"><span></span></div>
         </div>
         {/* <p className='view-all'>View All</p> */}
       </VariablesCard>
@@ -190,7 +191,7 @@ function Content(props) {
           {tokensList.map((Tok, index) => (
               <Tokenrow key={index} id = {index + 1} token={Tok.token} created_at={Tok.created_at} />
           ))}
-          <div ref={loader_tok} style={{visibility: "visible"}} className="loader"><span></span></div>
+          <div ref={loader_tok} style={{visibility: "hidden"}} className="loader"><span></span></div>
         </div>
         {/* <p className='view-all'>View All</p> */}
       </TokensCard>

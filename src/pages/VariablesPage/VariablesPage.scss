@@ -101,17 +101,42 @@
             padding-top: 9px;
             margin-top: 9px;
             border-top: 1px solid #888;
-            .button {
-                width:20%;
+            .counts {
+                width:40%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .button1 {
+                width:30%;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                padding-right: 15px;
+
+                button {
+                    background-color: #A0153E;
+                    margin-left: 5px;
+                }
+            }
+            .button2 {
+                width:30%;
                 display: flex;
                 align-items: center;
                 justify-content: end;
-                padding-right: 20px;
+                padding-right: 15px;
 
                 button {
                     background-color: #86469C;
+                    margin-left: 5px;
                 }
             }
+        }
+        .paging {
+            width:100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }

@@ -7,7 +7,6 @@ import './PopupMsg.scss'
 
 function PopupMsg(props) {
     useEffect(() => {
-        console.log("popup")
         if (props.popup) {
             setTimeout(() => {
                 props.setPopup(false);

@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import { Pressure, Temperature, Weight, Default } from '../../utils/Icons.jsx';
-import { isPressure, isTemperature } from '../../utils/icons.js';
+import { Pressure, Temperature, Weight, Voltage, Default } from '../../utils/Icons.jsx';
+import { isPressure, isTemperature, isWeight, isVoltage } from '../../utils/icons.js';
 import { formatDate } from '../../utils/timeUtils.js';
 function Variablerow(props) {
     return (
         <div className="variable-row">
             <div className="icon">
                 { isPressure(props.unit) ? <Pressure bg={props.bg} /> : 
-                ( isTemperature(props.unit) ? <Temperature bg={props.bg} /> :  
-                  <Default bg={props.bg} letter={props.letter}/>)}
+                  isTemperature(props.unit) ? <Temperature /> :  
+                  isWeight(props.unit) ? <Weight /> : 
+                  isVoltage(props.unit) ? <Voltage /> : 
+                  <Default bg={props.bg} letter={props.letter}/>}
             </div>
             <div className="details">
               <p className='name'>{props.variable_name}</p>

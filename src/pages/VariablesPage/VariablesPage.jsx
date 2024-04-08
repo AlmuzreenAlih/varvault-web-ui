@@ -18,7 +18,7 @@ function VariablesPage() {
     variablesList: "",
     tokensList: "",
     logsList: "",
-    cnts: []
+    cnts: null
   })
   const [toSave, setToSave] = useState(false);
   const [page, setPage] = useState(1) // Pagination
@@ -48,7 +48,6 @@ function VariablesPage() {
         alert("register wrong2");
       }
     });
-    console.log("Init")
     return () => {cancelToken.cancel('Request cancelled');};
   }, [toSave,page,order_by,order])
 
@@ -175,6 +174,58 @@ function VariablesPage() {
     });
   }
 
+  //Checkboxes
+  const [CheckBoxes, setCheckBoxes] = useState({
+    boxAll: false,
+    box1: false, box2: false,
+    box3: false, box4: false,
+    box5: false, box6: false,
+    box7: false, box8: false,
+    box9: false, box10: false,
+  })
+
+  function getMatchingIds(object, array) {
+    const matchedIds = [];
+    for (const property in object) {
+      if (property !== 'boxAll' && object[property] === true) {
+        try {
+          const index = parseInt(property.replace('box', ''), 10); const matchedItem = array[index-1];
+          matchedIds.push(matchedItem.id); 
+        } catch {
+          return matchedIds;
+        }
+      }
+    }
+    return matchedIds;
+  }
+
+  function deleteSelected() {
+    axios({ url: 'http://127.0.0.1:3000/private/delete-multiple-variables', 
+            method: 'post',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: { token:cookies.get('TokenSaved') , variable_ids: getMatchingIds(CheckBoxes,userDetails.variablesList) },
+            cancelToken: cancelToken.token})
+    .then((res) => {
+      if (res.data['msg'] === "Success") {
+        setPopup("Deleted Successfully");
+        }
+    })
+    .catch((err) => {
+      if (axios.isCancel(err)) {
+        console.log("Request cancelled:", err.message);
+      } else {
+        if (err.response.status === 401) {setPopup("Unauthorized");}
+        if (err.response.status === 451) {setPopup("Mismatch of type and value");}
+        if (err.response.status === 409) {setPopup("Something");}
+        if (err.response.status === 422) {setPopup("Variable Name already used in other variables.");}
+      }
+    })
+    .finally(()=>{
+      setCheckBoxes({boxAll: false,box1: false, box2: false,box3: false, box4: false,box5: false, box6: false,box7: false, box8: false,box9: false, box10: false,})
+      setToSave((prev)=>(!prev)); //To Reparse the Variable List
+    });
+  }
+
   const [popup, setPopup] = useState(false);
   const [dialog, setDialog] = useState(false);
 
@@ -191,6 +242,7 @@ function VariablesPage() {
     <VariablesContent accountCreation = {userDetails.created} 
                       variablesList = {userDetails.variablesList}
                       cnts = {userDetails.cnts}
+
                       showEditPanel={showEditPanel}
                       deleteVariable= {deleteVariable}
                       showAddPanel={showAddPanel}
@@ -198,6 +250,9 @@ function VariablesPage() {
                       page={page} setPage={setPage}
                       order_by={order_by} setOrder_by={setOrder_by}
                       order={order} setOrder={setOrder}
+
+                      CheckBoxes={CheckBoxes} setCheckBoxes={setCheckBoxes}
+                      deleteSelected={deleteSelected}
                       />
   </div>
   )

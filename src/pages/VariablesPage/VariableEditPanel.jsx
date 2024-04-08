@@ -8,7 +8,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 function VariableEditPanel(props) {
     useEffect(() => {
-      console.log(props.editInputValues)
     }, [props.editInputValues])
     function handlerInputChanged(e) {
         const { name, value } = e.target;
