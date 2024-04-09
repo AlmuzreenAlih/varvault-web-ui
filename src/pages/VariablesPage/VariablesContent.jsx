@@ -79,7 +79,7 @@ function VariablesContent(props) {
           </div>
           
           {variablesList.map((Var, index) => (
-              <VariableRow key={index} id={Var.id}
+              <VariableRow key={index} id={Var.id} keyy={index} 
                   unit={Var.unit} variable_name={Var.variable_name} 
                   variable_value={Var.value} variable_unit={Var.unit}
                   created_at={Var.created_at} updated_at={Var.updated_at} 

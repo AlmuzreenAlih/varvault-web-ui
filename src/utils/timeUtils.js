@@ -1,7 +1,19 @@
 export function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    const date = new Date(dateString);
-    return date.toLocaleString('en-US', options);
+  const date = new Date(dateString);
+
+  // Extracting individual date components
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding leading zero if necessary
+  const day = ('0' + date.getDate()).slice(-2); // Adding leading zero if necessary
+  const year = date.getFullYear().toString().slice(-2); // Extracting last two digits of the year
+  let hour = date.getHours();
+  const minute = ('0' + date.getMinutes()).slice(-2); // Adding leading zero if necessary
+  const meridiem = hour >= 12 ? 'PM' : 'AM'; // Determining AM or PM
+  hour = hour % 12 || 12; // Converting hour to 12-hour format
+
+  // Formatting the date string
+  const formattedDate = `${month}-${day}-${year} - ${hour}:${minute}${meridiem}`;
+
+  return formattedDate;
   };
 
   export function Elapsed(initialDateTimeString) {

@@ -52,7 +52,7 @@ button:hover {
     width: 150px;
 }
 
-.edit, .delete {
+.edit, .delete, .renew {
     font-size: 0.9rem;
     width:60px;
     margin-inline: 4px;
@@ -71,7 +71,7 @@ button:hover {
     border: 0;
 }
 
-.edit  {background-color: #5356FF;}
+.edit, .renew  {background-color: #5356FF;}
 .delete {background-color: #A0153E;}
 .cancel {background-color: gray;}
 .save {background-color: #496989;}

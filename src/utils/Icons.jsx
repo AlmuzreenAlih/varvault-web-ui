@@ -60,7 +60,7 @@ export function Account(props) {
 export function TokenIcon(props) {
     return (
         <div style={{ backgroundColor: colorArray[2] }} className="unit-symbol">
-            <i className="material-symbols-outlined">key</i>
+            <i style={{fontWeight: "400"}}className="material-symbols-outlined">key</i>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Account } from '../../utils/Icons.jsx';
+import { Account, TokenIcon } from '../../utils/Icons.jsx';
 import { Elapsed, calculateTimeRemaining } from '../../utils/timeUtils.js'
 function Logrow(props) {
   function TimeElapsed({ created_at }) {
@@ -22,23 +22,21 @@ function Logrow(props) {
   function LogConstruct(props) {
     return(
       <div className='logs-row'>
-        { props.opCat === "acc_reg" && 
-          <>  <Account id={props.id} char="person_add"/>
-            <div className='msg'>
-              <p>You registered your account to VarVault Web UI.</p>
-              <TimeElapsed created_at={props.created_at}/>
-            </div>
-          </>
-        }
-
-        { props.opCat === "acc_log" && 
-          <>  <Account id={props.id} char="assignment_ind"/>
-            <div className='msg'>
-              <p>You logged in to your account to Var&shy;Vault Web UI.</p>
-              <TimeElapsed created_at={props.created_at}/>
-            </div>
-          </>
-        }
+        { props.opCat === "acc_reg" && <> <Account id={props.id} char="person_add"/>
+            <div className='msg'><p>You registered your account to VarVault Web UI.</p> <TimeElapsed created_at={props.created_at}/></div>
+          </> }
+        { props.opCat === "acc_log" && <> <Account id={props.id} char="assignment_ind"/>
+            <div className='msg'><p>You logged in to your account to Var&shy;Vault Web UI.</p> <TimeElapsed created_at={props.created_at}/></div>
+          </> }
+        { props.opCat === "tok_ren" && <> <TokenIcon/> 
+            <div className='msg'><p>You renewed a token.</p><TimeElapsed created_at={props.created_at}/></div>
+          </> }
+        { props.opCat === "tok_del" && <> <TokenIcon/>
+            <div className='msg'><p>You deleted a token.</p><TimeElapsed created_at={props.created_at}/></div>
+          </>}
+        { props.opCat === "tok_new" && <> <TokenIcon/>
+            <div className='msg'><p>You generated a new token.</p><TimeElapsed created_at={props.created_at}/></div>
+          </>}
       </div>
     )
   }
@@ -47,6 +45,11 @@ function Logrow(props) {
       { props.category === "account" ? 
         props.operation === "register" ? <LogConstruct id={props.id} opCat="acc_reg" created_at={props.created_at}/> : 
         props.operation === "login" ? <LogConstruct id={props.id} opCat="acc_log" created_at={props.created_at}/> : null
+
+      : props.category === "tokens" ? 
+        props.operation === "renew" ? <LogConstruct id={props.id} opCat="tok_ren" created_at={props.created_at}/> : 
+        props.operation === "delete" ? <LogConstruct id={props.id} opCat="tok_del" created_at={props.created_at}/> :
+        props.operation === "new" ? <LogConstruct id={props.id} opCat="tok_new" created_at={props.created_at}/> : null
       : null }
     </>
   )

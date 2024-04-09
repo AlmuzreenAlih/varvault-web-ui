@@ -7,7 +7,7 @@ import Button from '../../components/Button/Button';
 function VariableRow(props) {
     return (
         <div className="variable-row content">
-            <div className='col1'><input type="checkbox" name={"box"+(props.id+1)} checked={props.CheckBoxes["box"+(props.id+1)]} onChange={props.handleCheckBox}/></div>
+            <div className='col1'><input type="checkbox" name={"box"+(props.keyy+1)} checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
             <div className="col2">
                 { isPressure(props.unit) ? <Pressure /> : 
                   isTemperature(props.unit) ? <Temperature /> :  

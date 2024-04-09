@@ -11,7 +11,7 @@ function DialogYesNo(props) {
         props.setDialog(false);
     }
     return (
-        <>
+        <div ref={props.fref}>
             {props.dialog && <div className="dialog-msg">
                 <div className='msg'>{props.msg}</div>
                 <div className='buttons'>
@@ -23,7 +23,7 @@ function DialogYesNo(props) {
                             label="No" />
                 </div>
             </div>}
-        </>
+        </div>
     )
 }
 

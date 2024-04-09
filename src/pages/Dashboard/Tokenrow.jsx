@@ -8,7 +8,7 @@ function Tokenrow(props) {
     useEffect(() => {
         const timeRem = calculateTimeRemaining(props.created_at);
         let [days, hrs, mins, secs] = timeRem;
-        setTimeRemaining(days + " days " + hrs + " hours " + mins + " mins " + secs + " secs");
+        setTimeRemaining(days + "days " + hrs + "hrs " + mins + "mins " + secs + "s");
     }, [props.created_at]);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ function Tokenrow(props) {
             const timeRem = calculateTimeRemaining(props.created_at);
             // console.log(timeRem)
             let [days, hrs, mins, secs] = timeRem;
-            setTimeRemaining(days + " days " + hrs + " hours " + mins + " mins " + secs + " secs"|| "");
+            setTimeRemaining(days + "days " + hrs + "hrs " + mins + "mins " + secs + "s"|| "");
         }, 1000); // 1000 milliseconds (1 second) interval
         
         return () => clearInterval(interval); // Clear interval on component unmount
