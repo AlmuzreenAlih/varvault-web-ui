@@ -31,20 +31,28 @@ function VariablesContent(props) {
     }
 	}, [props.variablesList]); // Update variableList when props.variablesList changes
 
-  // LOADERS
-  const loader_var = useRef(null);
+  // Visibilities
+  const [deleteVisibility, setDeleteVisibility] = useState("hidden")
+
+  useEffect(() => {
+    for (const box in props.CheckBoxes) {
+      if (props.CheckBoxes[box] == true) {setDeleteVisibility("visible"); return}
+    }
+    setDeleteVisibility("hidden");
+  }, [props.CheckBoxes])
+  
 
   // Pagination
   function handleChange(e,value) {
     props.setPage(value);
   }
 
-  // 
-  function Orderby_Variable() {props.setOrder_by("variable_name"); props.setOrder(!props.order); props.setPage(1);}
-  function Orderby_Value() {props.setOrder_by("value"); props.setOrder(!props.order); props.setPage(1);}
-  function Orderby_Type() {props.setOrder_by("variable_type"); props.setOrder(!props.order); props.setPage(1);}
-  function Orderby_Created() {props.setOrder_by("id"); props.setOrder(!props.order); props.setPage(1);}
-  function Orderby_Updated() {props.setOrder_by("updated_at"); props.setOrder(!props.order); props.setPage(1);}
+  // Order Functions
+  function Orderby_Variable() {props.setOrder_by("variable_name"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Value()    {props.setOrder_by("value"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Type()     {props.setOrder_by("variable_type"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Created()  {props.setOrder_by("id"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Updated()  {props.setOrder_by("updated_at"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
 
   // CheckBoxes
   function handleCheckBox(e) {
@@ -59,7 +67,7 @@ function VariablesContent(props) {
         box7: checked, box8: checked,
         box9: checked, box10: checked,
     })} else {
-      props.setCheckBoxes({ ...props.CheckBoxes, [name]: checked });
+      props.setCheckBoxes({ ...props.CheckBoxes, boxAll: false, [name]: checked });
     }
   }
   
@@ -99,12 +107,15 @@ function VariablesContent(props) {
         </div>
         <div className='view-all'>
         <div className="button1">
-          <Button onClick={props.deleteSelected} label="Delete Selected"></Button>
+          <Button style={{visibility: deleteVisibility}} 
+                  className="button_bottom" onClick={props.deleteSelected} 
+                  label="Delete Selected"></Button>
           </div>
           <div className="counts">(Displaying {(props.page-1)*10+1} - {props.page*10 < countings.variables ? props.page*10 : countings.variables} of {countings.variables})</div>
           
           <div className="button2">
-            <Button onClick={props.showAddPanel} label="+ New Variable"></Button>
+            <Button className="button_bottom" onClick={props.showAddPanel} 
+                    label="+ Add Variable"></Button>
           </div>
         </div>
         <div className="paging">

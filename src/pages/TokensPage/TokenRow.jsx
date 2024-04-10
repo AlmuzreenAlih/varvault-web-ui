@@ -24,8 +24,18 @@ function TokenRow(props) {
         return () => clearInterval(interval); // Clear interval on component unmount
       }, [props.updated_at]);
 
+    const [buttonVisibility, setButtonVisibility] = useState("hidden");
+    function handleOnMouseOver(e) {
+        console.log("first")
+        setButtonVisibility("visible")
+    }
+    function handleOnMouseLeave(e) {
+        console.log("first")
+        setButtonVisibility("hidden")
+    }
+
     return (
-        <div className="token-row content">
+        <div className="token-row content" onMouseOver={handleOnMouseOver} onMouseLeave={handleOnMouseLeave}> 
             <div className='col1'><input type="checkbox" name={"box"+(props.keyy+1)} checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
             <div className="col2">
                 <TokenIcon id={props.id}/>
@@ -37,11 +47,11 @@ function TokenRow(props) {
             <div className='col5'>{formatDate(props.created_at)}</div>
             <div className='col5'>{formatDate(props.updated_at)}</div>
             <div className='col6'>
-                <Button style={{}} 
+                <Button style={{visibility: buttonVisibility}} 
                     className="renew"
                     onClick={()=>{props.renewToken(props.id)}} 
                     label="Renew" />
-                <Button style={{}} 
+                <Button style={{visibility: buttonVisibility}} 
                     className="delete"
                     onClick={()=>{props.deleteToken(props.id)}} 
                     label="Delete" />

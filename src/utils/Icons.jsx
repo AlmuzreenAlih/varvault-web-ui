@@ -65,6 +65,14 @@ export function TokenIcon(props) {
     )
 }
 
+export function VariableIcon(props) {
+    return (
+        <div style={{ backgroundColor: colorArray[3] }} className="unit-symbol">
+            <i style={{fontWeight: "400"}}className="material-symbols-outlined">pin</i>
+        </div>
+    )
+}
+
 export function Default(props) {
     return (
         <div style={{ backgroundColor: props.bg }} className="unit-symbol">

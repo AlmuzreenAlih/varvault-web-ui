@@ -5,8 +5,18 @@ import { formatDate } from '../../utils/timeUtils.js';
 import Button from '../../components/Button/Button';
 
 function VariableRow(props) {
+    const [buttonVisibility, setButtonVisibility] = useState("hidden");
+    function handleOnMouseOver(e) {
+        console.log("first")
+        setButtonVisibility("visible")
+    }
+    function handleOnMouseLeave(e) {
+        console.log("first")
+        setButtonVisibility("hidden")
+    }
+    
     return (
-        <div className="variable-row content">
+        <div className="variable-row content" onMouseOver={handleOnMouseOver} onMouseLeave={handleOnMouseLeave}>
             <div className='col1'><input type="checkbox" name={"box"+(props.keyy+1)} checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
             <div className="col2">
                 { isPressure(props.unit) ? <Pressure /> : 
@@ -21,11 +31,11 @@ function VariableRow(props) {
             <div className='col5'>{formatDate(props.created_at)}</div>
             <div className='col5'>{formatDate(props.updated_at)}</div>
             <div className='col6'>
-                <Button style={{}} 
+                <Button style={{visibility: buttonVisibility}} 
                     className="edit"
                     onClick={()=>{props.showEditPanel(props.id,props.variable_name, props.variable_value,props.variable_type,props.variable_unit)}} 
                     label="Edit" />
-                <Button style={{}} 
+                <Button style={{visibility: buttonVisibility}} 
                     className="delete"
                     onClick={()=>{props.deleteVariable(props.id)}} 
                     label="Delete" />

@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import Logrow from './Logrow';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { formatDate2 } from '../../utils/timeUtils.js';
 
 function Content(props) {
 	const cookies = new Cookies();
@@ -146,7 +147,7 @@ function Content(props) {
         </section>
 
         <section className='body'>
-          <p>{props.accountCreation}</p>
+          <p>{formatDate2(props.accountCreation)}</p>
           <p>{countings.logs}</p>
           <p>{countings.variables}</p>
           <p>{countings.tokens}</p>

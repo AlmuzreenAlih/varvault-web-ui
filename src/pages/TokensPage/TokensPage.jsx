@@ -97,7 +97,12 @@ function TokensPage() {
     return matchedIds;
   }
 
+  function resetCheckboxes() {
+    setCheckBoxes({boxAll: false,box1: false, box2: false,box3: false, box4: false,box5: false, box6: false,box7: false, box8: false,box9: false, box10: false,})
+  }
+
   function deleteSelected() {
+    console.log(getMatchingIds(CheckBoxes,userDetails.tokensList))
     axios({ url: 'http://127.0.0.1:3000/private/delete-multiple-tokens', 
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -215,7 +220,7 @@ function TokensPage() {
                       order={order} setOrder={setOrder}
 
                       CheckBoxes={CheckBoxes} setCheckBoxes={setCheckBoxes}
-                      deleteSelected={deleteSelected}
+                      deleteSelected={deleteSelected} resetCheckboxes={resetCheckboxes}
                       />
   </div>
   )

@@ -29,7 +29,7 @@ function VariablesPage() {
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
-                    page: page , target:"variable",
+                    page: page , target:"variables",
                     order_by: order_by, order: order}, 
             cancelToken: cancelToken.token,})
     .then((res) => {
@@ -199,6 +199,10 @@ function VariablesPage() {
     return matchedIds;
   }
 
+  function resetCheckboxes() {
+    setCheckBoxes({boxAll: false,box1: false, box2: false,box3: false, box4: false,box5: false, box6: false,box7: false, box8: false,box9: false, box10: false,})
+  }
+
   function deleteSelected() {
     axios({ url: 'http://127.0.0.1:3000/private/delete-multiple-variables', 
             method: 'post',
@@ -221,7 +225,7 @@ function VariablesPage() {
       }
     })
     .finally(()=>{
-      setCheckBoxes({boxAll: false,box1: false, box2: false,box3: false, box4: false,box5: false, box6: false,box7: false, box8: false,box9: false, box10: false,})
+      resetCheckboxes();
       setToSave((prev)=>(!prev)); //To Reparse the Variable List
     });
   }
@@ -252,7 +256,7 @@ function VariablesPage() {
                       order={order} setOrder={setOrder}
 
                       CheckBoxes={CheckBoxes} setCheckBoxes={setCheckBoxes}
-                      deleteSelected={deleteSelected}
+                      deleteSelected={deleteSelected} resetCheckboxes={resetCheckboxes}
                       />
   </div>
   )

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Account, TokenIcon } from '../../utils/Icons.jsx';
+import { Account, TokenIcon, VariableIcon } from '../../utils/Icons.jsx';
 import { Elapsed, calculateTimeRemaining } from '../../utils/timeUtils.js'
 function Logrow(props) {
   function TimeElapsed({ created_at }) {
@@ -37,6 +37,15 @@ function Logrow(props) {
         { props.opCat === "tok_new" && <> <TokenIcon/>
             <div className='msg'><p>You generated a new token.</p><TimeElapsed created_at={props.created_at}/></div>
           </>}
+        { props.opCat === "var_add" && <> <VariableIcon/> 
+            <div className='msg'><p>You added a variable.</p><TimeElapsed created_at={props.created_at}/></div>
+          </> }
+        { props.opCat === "var_del" && <> <VariableIcon/>
+            <div className='msg'><p>You deleted a variable.</p><TimeElapsed created_at={props.created_at}/></div>
+          </>}
+        { props.opCat === "var_edi" && <> <VariableIcon/>
+            <div className='msg'><p>You edited a variable.</p><TimeElapsed created_at={props.created_at}/></div>
+          </>}
       </div>
     )
   }
@@ -50,6 +59,11 @@ function Logrow(props) {
         props.operation === "renew" ? <LogConstruct id={props.id} opCat="tok_ren" created_at={props.created_at}/> : 
         props.operation === "delete" ? <LogConstruct id={props.id} opCat="tok_del" created_at={props.created_at}/> :
         props.operation === "new" ? <LogConstruct id={props.id} opCat="tok_new" created_at={props.created_at}/> : null
+      
+      : props.category === "variables" ? 
+        props.operation === "add" ? <LogConstruct id={props.id} opCat="var_add" created_at={props.created_at}/> : 
+        props.operation === "delete" ? <LogConstruct id={props.id} opCat="var_del" created_at={props.created_at}/> :
+        props.operation === "edit" ? <LogConstruct id={props.id} opCat="var_edi" created_at={props.created_at}/> : null
       : null }
     </>
   )
