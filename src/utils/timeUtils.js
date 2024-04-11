@@ -11,14 +11,14 @@ export function formatDate(dateString) {
   hour = hour % 12 || 12; // Converting hour to 12-hour format
 
   // Formatting the date string
-  const formattedDate = `${month}-${day}-${year} - ${hour}:${minute}${meridiem}`;
+  const formattedDate = `${month}-${day}-${year} | ${hour}:${minute}${meridiem}`;
 
   return formattedDate;
   };
   export function formatDate2(dateString) {
     const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
   
     const date = new Date(dateString);
@@ -31,6 +31,26 @@ export function formatDate(dateString) {
     return formattedDate;
   }
   
+  export function formatDate3(dateString) {
+    const date = new Date(dateString);
+    
+    // Define month names array
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
+    // Extracting individual date components
+    const monthName = months[date.getMonth()]; // Get month abbreviation
+    const day = date.getDate(); // Get day of the month
+    const year = date.getFullYear(); // Get full year
+    let hour = date.getHours(); // Get hour
+    const minute = ('0' + date.getMinutes()).slice(-2); // Adding leading zero if necessary
+    const meridiem = hour >= 12 ? 'PM' : 'AM'; // Determining AM or PM
+    hour = hour % 12 || 12; // Converting hour to 12-hour format
+  
+    // Formatting the date string
+    const formattedDate = `${monthName} ${day}, ${year} - ${hour}:${minute} ${meridiem}`;
+  
+    return formattedDate;
+  }
 
   export function Elapsed(initialDateTimeString) {
     // Convert the initial date string to a Date object

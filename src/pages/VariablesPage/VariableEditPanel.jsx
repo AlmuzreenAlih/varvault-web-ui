@@ -17,49 +17,52 @@ function VariableEditPanel(props) {
         props.setEditInputValues({ ...props.editInputValues, variable_type: e.target.innerHTML })
     }
     return (<>
-        { props.editingMode && <form ref={props.forwardedRef} className={"edit-panel " + props.className}>
-            <section>{props.editingMode}</section>
+        { props.editingMode && <div className='whole-page'>
+            <form ref={props.forwardedRef} className={"edit-panel " + props.className}>
+                <section>{props.editingMode}</section>
 
-            <span className='pbrk'></span>
+                <span className='pbrk'></span>
 
-            <Input name="variable_id" hint="" className="hidden"/>
+                <Input name="variable_id" hint="" className="hidden"/>
 
-            <TextField name="variable_name" label="Name" value={props.editInputValues.variable_name}
-                   onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'
-                   className='heightInput'/>
+                <TextField name="variable_name" label="Name" value={props.editInputValues.variable_name}
+                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'
+                    className='heightInput'/>
 
-            <span className='pbrk'></span>
+                <span className='pbrk'></span>
 
-            <TextField name="variable_value" label="Value" value={props.editInputValues.variable_value}
-                   onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
-                   
-            <span className='pbrk'></span>
+                <TextField name="variable_value" label="Value" value={props.editInputValues.variable_value}
+                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
+                    
+                <span className='pbrk'></span>
 
-            <Autocomplete
-                disablePortal
-                options={["","numeric","text","boolean"]}
-                sx={{width: "100%"}} size='small'
-                renderInput={(params) => <TextField {...params} name="variable_type" label="Type" />}
-                value={props.editInputValues.variable_type} onChange={e=>{handlerTypeChanged(e)}}
-            />
+                <Autocomplete
+                    disablePortal
+                    options={["","numeric","text","boolean"]}
+                    sx={{width: "100%"}} size='small'
+                    renderInput={(params) => <TextField {...params} name="variable_type" label="Type" />}
+                    value={props.editInputValues.variable_type} onChange={e=>{handlerTypeChanged(e)}}
+                />
 
-            <span className='pbrk'></span>
-            <TextField name="variable_unit" label="Unit" value={props.editInputValues.variable_unit}
-                   onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
+                <span className='pbrk'></span>
+                <TextField name="variable_unit" label="Unit" value={props.editInputValues.variable_unit}
+                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
 
-            <span className='pbrk'></span>
+                <span className='pbrk'></span>
 
-            <section className='buttons'>
-                <Button style={{}} 
-                    className="cancel"
-                    onClick={(e)=>{e.preventDefault(); props.setEditingMode(false);}} 
-                    label="Cancel" />
-                <Button style={{}} 
-                    className="save"
-                    onClick={(e)=>{props.saveEditing(e)}} 
-                    label="Save" />
-            </section>
-        </form>}
+                <section className='buttons'>
+                    <Button style={{}} 
+                        className="cancel"
+                        onClick={(e)=>{e.preventDefault(); props.setEditingMode(false);}} 
+                        label="Cancel" />
+                    <Button style={{}} 
+                        className="save"
+                        onClick={(e)=>{props.saveEditing(e)}} 
+                        label="Save" />
+                </section>
+            </form>
+        </div>
+        }
     </>)
 }
 

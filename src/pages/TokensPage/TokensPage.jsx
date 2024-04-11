@@ -221,6 +221,8 @@ function TokensPage() {
 
                       CheckBoxes={CheckBoxes} setCheckBoxes={setCheckBoxes}
                       deleteSelected={deleteSelected} resetCheckboxes={resetCheckboxes}
+
+                      popup={popup} setPopup={setPopup}
                       />
   </div>
   )

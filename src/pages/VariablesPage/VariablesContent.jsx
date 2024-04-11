@@ -33,13 +33,12 @@ function VariablesContent(props) {
 
   // Visibilities
   const [deleteVisibility, setDeleteVisibility] = useState("hidden")
-
   useEffect(() => {
     for (const box in props.CheckBoxes) {
       if (props.CheckBoxes[box] == true) {setDeleteVisibility("visible"); return}
     }
     setDeleteVisibility("hidden");
-  }, [props.CheckBoxes])
+  }, [props.CheckBoxes]);
   
 
   // Pagination
@@ -49,10 +48,10 @@ function VariablesContent(props) {
 
   // Order Functions
   function Orderby_Variable() {props.setOrder_by("variable_name"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
-  function Orderby_Value()    {props.setOrder_by("value"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Value()    {props.setOrder_by("value");         props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
   function Orderby_Type()     {props.setOrder_by("variable_type"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
-  function Orderby_Created()  {props.setOrder_by("id"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
-  function Orderby_Updated()  {props.setOrder_by("updated_at"); props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Created()  {props.setOrder_by("id");            props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
+  function Orderby_Updated()  {props.setOrder_by("updated_at");    props.setOrder(!props.order); props.setPage(1); props.resetCheckboxes();}
 
   // CheckBoxes
   function handleCheckBox(e) {
@@ -78,11 +77,11 @@ function VariablesContent(props) {
         <div className="variable-part">
           <div className="variable-row header">
             <div className='col1'><input type="checkbox" name="boxAll" checked={props.CheckBoxes["boxAll"]} onChange={handleCheckBox}/></div>
-            <div className='col2 span2' onClick={Orderby_Variable}> Variable        {props.order_by==="variable_name" && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col3'          onClick={Orderby_Value}> Current Value   {props.order_by==="value"         && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col3'           onClick={Orderby_Type}> Type            {props.order_by==="variable_type" && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col4'        onClick={Orderby_Created}> Created at      {props.order_by==="id"            && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col5'        onClick={Orderby_Updated}> Last Updated at {props.order_by==="updated_at"    && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col2 span2' onClick={Orderby_Variable}> VARIABLE        {props.order_by==="variable_name" && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col3'       onClick={Orderby_Value}>    CURRENT VALUE   {props.order_by==="value"         && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col3'       onClick={Orderby_Type}>     TYPE            {props.order_by==="variable_type" && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col4'       onClick={Orderby_Created}>  CREATED AT      {props.order_by==="id"            && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col5'       onClick={Orderby_Updated}>  LAST UPDATED AT {props.order_by==="updated_at"    && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
             <div className='col6'></div>
           </div>
           

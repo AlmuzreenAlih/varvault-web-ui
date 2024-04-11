@@ -1,45 +1,57 @@
-.edit-panel {
+.whole-page {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: white, $alpha: 0.25);
+    backdrop-filter: blur(10px);
+
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 1000;
+    top: 0; left: 0;
 
-    background-color: var(--color_mode);
-    border: 1px solid var(--color_contrast);
-    border-radius: 8px;
-    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+    z-index: 900;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-    padding-block: 25px;
-    padding-inline: 20px;
-
-    section {
-        width: 100%;
-        padding-left: 20px;
-        text-align: start;
-        font-weight: 600;
-        font-size: 1.25rem
-    }
-
-    input {
-        width: 400px;
-    }
-
-    .buttons {
-        background-color: transparent;
+    .edit-panel {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 1000;
+    
+        background-color: var(--color_mode);
+        border: 1px solid var(--color_contrast);
+        border-radius: 8px;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+    
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-left: 0px;
-        // flex-direction: column;
-    }
-
-    .heightInput {
-        font-size: 0.5rem;
+        flex-direction: column;
+    
+        padding-block: 25px;
+        padding-inline: 20px;
+    
+        section {
+            width: 100%;
+            padding-left: 20px;
+            text-align: start;
+            font-weight: 600;
+            font-size: 1.25rem
+        }
+    
+        input {
+            width: 400px;
+        }
+    
+        .buttons {
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-left: 0px;
+            // flex-direction: column;
+        }
+    
+        .heightInput {
+            font-size: 0.5rem;
+        }
     }
 }

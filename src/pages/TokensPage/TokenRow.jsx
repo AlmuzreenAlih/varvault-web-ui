@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { TokenIcon } from '../../utils/Icons.jsx';
-import { formatDate } from '../../utils/timeUtils.js';
+import { formatDate3 } from '../../utils/timeUtils.js';
 import Button from '../../components/Button/Button.jsx';
 import { calculateTimeRemaining } from '../../utils/timeUtils.js'
 
@@ -33,7 +33,16 @@ function TokenRow(props) {
         console.log("first")
         setButtonVisibility("hidden")
     }
-
+    function copyToClip(str) {
+        const el = document.createElement('textarea');
+        el.value = str;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        props.setPopup("Token Copied Successfuly")
+      }
+      
     return (
         <div className="token-row content" onMouseOver={handleOnMouseOver} onMouseLeave={handleOnMouseLeave}> 
             <div className='col1'><input type="checkbox" name={"box"+(props.keyy+1)} checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
@@ -44,9 +53,13 @@ function TokenRow(props) {
             
 
             <div className='col4'>{timeRemaining}</div>
-            <div className='col5'>{formatDate(props.created_at)}</div>
-            <div className='col5'>{formatDate(props.updated_at)}</div>
+            <div className='col5'>{formatDate3(props.created_at)}</div>
+            <div className='col5'>{formatDate3(props.updated_at)}</div>
             <div className='col6'>
+            <Button style={{visibility: buttonVisibility}} 
+                    className="copy"
+                    onClick={()=>{copyToClip(props.token)}} 
+                    label="Copy" />
                 <Button style={{visibility: buttonVisibility}} 
                     className="renew"
                     onClick={()=>{props.renewToken(props.id)}} 

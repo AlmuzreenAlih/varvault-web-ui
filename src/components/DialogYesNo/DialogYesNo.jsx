@@ -11,8 +11,9 @@ function DialogYesNo(props) {
         props.setDialog(false);
     }
     return (
-        <div ref={props.fref}>
-            {props.dialog && <div className="dialog-msg">
+    <>
+        {props.dialog && <div ref={props.fref} className='whole-page'>
+            <div className="dialog-msg">
                 <div className='msg'>{props.msg}</div>
                 <div className='buttons'>
                     <Button className="yes"
@@ -22,8 +23,9 @@ function DialogYesNo(props) {
                             onClick={No} 
                             label="No" />
                 </div>
-            </div>}
-        </div>
+            </div>
+        </div>}
+    </>
     )
 }
 

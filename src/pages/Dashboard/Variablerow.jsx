@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Pressure, Temperature, Weight, Voltage, Default } from '../../utils/Icons.jsx';
 import { isPressure, isTemperature, isWeight, isVoltage } from '../../utils/icons.js';
-import { formatDate } from '../../utils/timeUtils.js';
+import { formatDate3 } from '../../utils/timeUtils.js';
 function Variablerow(props) {
     return (
         <div className="variable-row">
@@ -15,7 +15,7 @@ function Variablerow(props) {
             <div className="details">
               <p className='name'>{props.variable_name}</p>
               <p className='value'>{props.value}</p>
-              <p className='updated_at'>Last Update at {formatDate(props.updated_at)}</p>
+              <p className='updated_at'>Last Update at {formatDate3(props.updated_at)}</p>
             </div>
         </div>
     )

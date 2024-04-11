@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Pressure, Temperature, Weight, Voltage, Default } from '../../utils/Icons.jsx';
 import { isPressure, isTemperature, isWeight, isVoltage } from '../../utils/icons.js';
-import { formatDate } from '../../utils/timeUtils.js';
+import { formatDate,formatDate3 } from '../../utils/timeUtils.js';
 import Button from '../../components/Button/Button';
 
 function VariableRow(props) {
@@ -28,8 +28,8 @@ function VariableRow(props) {
             <div className='col3'>{props.variable_name}</div>
             <div className='col4'>{props.variable_value + " " + props.variable_unit}</div>
             <div className='col4'>{props.variable_type}</div>
-            <div className='col5'>{formatDate(props.created_at)}</div>
-            <div className='col5'>{formatDate(props.updated_at)}</div>
+            <div className='col5'>{formatDate3(props.created_at)}</div>
+            <div className='col5'>{formatDate3(props.updated_at)}</div>
             <div className='col6'>
                 <Button style={{visibility: buttonVisibility}} 
                     className="edit"

@@ -74,10 +74,10 @@ function TokensContent(props) {
         <div className="token-part">
           <div className="token-row header">
             <div className='col1'><input type="checkbox" name="boxAll" checked={props.CheckBoxes["boxAll"]} onChange={handleCheckBox}/></div>
-            <div className='col2 span2'  onClick={Orderby_Token}>   Token           {props.order_by==="token"       && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col3'        onClick={Orderby_Updated}> Expiration      {props.order_by==="updated_at"  && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col4'        onClick={Orderby_Created}> Created at      {props.order_by==="id"          && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
-            <div className='col5'        onClick={Orderby_Updated}> Last Updated at {props.order_by==="updated_at"  && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col2 span2'  onClick={Orderby_Token}>   TOKEN           {props.order_by==="token"       && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col3'        onClick={Orderby_Updated}> EXPIRATION      {props.order_by==="updated_at"  && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col4'        onClick={Orderby_Created}> CREATED AT      {props.order_by==="id"          && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
+            <div className='col5'        onClick={Orderby_Updated}> LAST UPDATED AT {props.order_by==="updated_at"  && <i className="material-symbols-outlined">{props.order===true ? <>arrow_upward</> : <>arrow_downward</>}</i>}</div>
             <div className='col6'></div>
           </div>
           
@@ -94,6 +94,8 @@ function TokensContent(props) {
                   
                   CheckBoxes={props.CheckBoxes} setCheckBoxes={props.setCheckBoxes}
                   handleCheckBox={handleCheckBox}
+
+                  popup={props.popup} setPopup={props.setPopup}
                   />
           ))}
           {/* <div ref={loader_var} style={{visibility: "visible"}} className="loader"><span></span></div> */}
