@@ -1,14 +1,14 @@
 #body {
     height: 100vh;
 
-    background-color: transparent;
+    background-color: var(--color_secondary);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .main-panel {
-    background-color: rgb(245, 245, 245);
+    background-color: var(--color_mode);
     // width: 30vw;
     // height: 70vh;
 

@@ -34,7 +34,7 @@
     }
 
     .tokens-card {
-        background-color: transparent;
+        background-color: var(--color_mode);
         display: flex;
         align-items: start;
         justify-content: start;
@@ -76,19 +76,19 @@
                     justify-content: start;
                 }
                 .span2 {grid-column: span 2;}
-                .col1,.col3,.col4,.col5 {
-                    background-color: green;
+                .col1,.col2,.col3,.col4,.col5,.col6 {
                     background-color: transparent;
                     display: flex;
                     align-items: center;
                     justify-content: start;
+                    cursor: pointer;
                 }
+                .col1 {padding-left:6px}
+                .span2 {grid-column: span 2;}
                 .col6 {
-                    background-color: transparent;
-                    display: flex;
-                    align-items: center;
                     justify-content: center;
                 }
+                .height3rem {height: 3rem;}
             }
             
         }

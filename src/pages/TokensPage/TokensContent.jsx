@@ -6,30 +6,24 @@ import TokenRow from './TokenRow';
 import DisablerPage from '../common/DisablerPage';
 import Pagination from '@mui/material/Pagination';
 import Button from '../../components/Button/Button';
+import { makeStyles } from '@mui/styles';
+const useStyles = makeStyles((theme) => ({
+  ul: {
+    "& .MuiPaginationItem-root": {
+      color: "var(--color_contrast)"
+    }
+  }
+}));
 
 function TokensContent(props) {
 	const cookies = new Cookies();
 	const cancelToken = axios.CancelToken.source();
+  const classes = useStyles();
   const colorArray = ["#8B93FF","#E9A89B","#D875C7","#90D26D","#FFEBB2",];
   
 	// COUNTINGS
-	const [countings, setCountings] = useState({
-    tokens: 0,
-	});
-	useEffect(() => {
-    if (props.cnts) {
-      setCountings({ tokens: props.cnts[1],
-    })
-    }
-	}, [props.cnts])
 	
 	// VARIABLE LIST
-	const [tokensList, setTokensList] = useState([]);
-	useEffect(() => {
-    if (props.tokensList) {
-      setTokensList(props.tokensList);
-    }
-	}, [props.tokensList]); // Update tokenList when props.tokensList changes
 
   // Visibilities
   const [deleteVisibility, setDeleteVisibility] = useState("hidden")
@@ -81,7 +75,7 @@ function TokensContent(props) {
             <div className='col6'></div>
           </div>
           
-          {tokensList.map((Var, index) => (
+          {props.tokensList.map((Var, index) => (
               <TokenRow key={index} keyy={index} id={Var.id}
                   token={Var.token} 
                   created_at={Var.created_at} updated_at={Var.updated_at} 
@@ -105,7 +99,7 @@ function TokensContent(props) {
           <Button style={{visibility: deleteVisibility}} className="button_bottom"
                   onClick={props.deleteSelected} label="Delete Selected"></Button>
           </div>
-          <div className="counts">(Displaying {(props.page-1)*10+1} - {props.page*10 < countings.tokens ? props.page*10 : countings.tokens} of {countings.tokens})</div>
+          <div className="counts">(Displaying {(props.page-1)*10+1} - {props.page*10 < props.cnts.tokens ? props.page*10 : props.cnts.tokens} of {props.cnts.tokens})</div>
           
           <div className="button2">
             <Button className="button_bottom"
@@ -113,10 +107,11 @@ function TokensContent(props) {
           </div>
         </div>
         <div className="paging">
-          <Pagination count={Math.ceil(countings.tokens/10)} 
+          <Pagination count={Math.ceil(props.cnts.tokens/10)} 
                         defaultPage={1}
                         page={props.page} onChange={handleChange}
                         color="primary" size="small" 
+                        classes={{ ul: classes.ul }}
                         // func={(e,page)=>{console.log(e,page)}}
                         />
         </div>

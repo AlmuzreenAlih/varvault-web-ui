@@ -28,6 +28,12 @@ function Logrow(props) {
         { props.opCat === "acc_log" && <> <Account id={props.id} char="assignment_ind"/>
             <div className='msg'><p>You logged in to your account to Var&shy;Vault Web UI.</p> <TimeElapsed created_at={props.created_at}/></div>
           </> }
+        { props.opCat === "acc_us" && <> <Account id={props.id} char="manage_accounts"/>
+            <div className='msg'><p>You changed your account's username.</p> <TimeElapsed created_at={props.created_at}/></div>
+          </> }
+        { props.opCat === "acc_pwd" && <> <Account id={props.id} char="manage_accounts"/>
+            <div className='msg'><p>You changed your account's password.</p> <TimeElapsed created_at={props.created_at}/></div>
+          </> }
         { props.opCat === "tok_ren" && <> <TokenIcon/> 
             <div className='msg'><p>You renewed a token.</p><TimeElapsed created_at={props.created_at}/></div>
           </> }
@@ -53,7 +59,9 @@ function Logrow(props) {
     <>
       { props.category === "account" ? 
         props.operation === "register" ? <LogConstruct id={props.id} opCat="acc_reg" created_at={props.created_at}/> : 
-        props.operation === "login" ? <LogConstruct id={props.id} opCat="acc_log" created_at={props.created_at}/> : null
+        props.operation === "login" ? <LogConstruct id={props.id} opCat="acc_log" created_at={props.created_at}/> : 
+        props.operation === "changeus" ? <LogConstruct id={props.id} opCat="acc_us" created_at={props.created_at}/> : 
+        props.operation === "changepwd" ? <LogConstruct id={props.id} opCat="acc_pwd" created_at={props.created_at}/> : null
 
       : props.category === "tokens" ? 
         props.operation === "renew" ? <LogConstruct id={props.id} opCat="tok_ren" created_at={props.created_at}/> : 

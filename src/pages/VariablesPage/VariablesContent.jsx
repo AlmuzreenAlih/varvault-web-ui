@@ -6,10 +6,23 @@ import VariableRow from './VariableRow';
 import DisablerPage from '../common/DisablerPage';
 import Pagination from '@mui/material/Pagination';
 import Button from '../../components/Button/Button';
+import { makeStyles } from '@mui/styles';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
+const useStyles = makeStyles((theme) => ({
+  ul: {
+    "& .MuiPaginationItem-root": {
+      color: "var(--color_contrast)"
+    }
+  }
+}));
 
 function VariablesContent(props) {
 	const cookies = new Cookies();
 	const cancelToken = axios.CancelToken.source();
+  const classes = useStyles();
   const colorArray = ["#8B93FF","#E9A89B","#D875C7","#90D26D","#FFEBB2",];
   
 	// COUNTINGS
@@ -69,11 +82,51 @@ function VariablesContent(props) {
       props.setCheckBoxes({ ...props.CheckBoxes, boxAll: false, [name]: checked });
     }
   }
-  
+  const [TFStyles, setTFStyles] = useState(
+    { input: { color: 'var(--color_contrast)',
+               '&::placeholder': {opacity: 0.5, color:'var(--color_contrast)'}},
+      label: {color:'var(--color_contrast)'},
+      fieldset: { borderColor: 'var(--color_tertiary)' } });
+  const [search, setSearch] = useState("");
+  const timer = useRef(null)
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setSearch(value);
+    if (value === "") {
+      props.setSearch(value);
+    } else {
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        props.setSearch(value);
+      }, 300);
+    }
+  }
+
+  function handleSearch() {
+    props.setSearch(search);
+  }
+
+  function handleCancel() {
+    setSearch("");
+    props.setSearch("");
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter") {
+      props.setSearch(search);
+    }
+  }
   return (
     <div className='VariablesContentDiv'>
       <VariablesCard title="Variables" className="variables-card">
-        <strong className="title"> Variables </strong>
+        <div className="title">
+          <strong> Variables </strong> 
+          {/* <SearchIcon onClick={handleSearch} style={{color: "var(--color_tertiary)", cursor: "pointer"}}/> */}
+          <SearchIcon style={{color: "var(--color_tertiary)"}}/>
+          <InputBase sx={{...TFStyles, ml: 1, flex: 1 }} placeholder="Search Variable" value={search}
+                    inputProps={{ 'aria-label': 'search' }} onChange={handleInputChange} onKeyDown={handleKeyDown}/>
+          {/* {search!=="" && <CloseIcon onClick={handleCancel} style={{color: "var(--color_tertiary)", cursor: "pointer"}}/>} */}
+        </div>
         <div className="variable-part">
           <div className="variable-row header">
             <div className='col1'><input type="checkbox" name="boxAll" checked={props.CheckBoxes["boxAll"]} onChange={handleCheckBox}/></div>
@@ -118,10 +171,12 @@ function VariablesContent(props) {
           </div>
         </div>
         <div className="paging">
-          <Pagination count={Math.ceil(countings.variables/10)} 
+          <Pagination style={{backgroundColor: "var(--color_mode)", color: "white !important"}} 
+                        count={Math.ceil(countings.variables/10)} 
                         defaultPage={1}
                         page={props.page} onChange={handleChange}
-                        color="primary" size="small" 
+                        color="primary" size="small"
+                        classes={{ ul: classes.ul }}
                         // func={(e,page)=>{console.log(e,page)}}
                         />
         </div>

@@ -29,12 +29,19 @@
             padding-bottom: 8px;
             width: 100%;
             border-bottom: 1px solid #888;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            strong {
+                flex-basis: 76%;
+            }
         }
         overflow: hidden;
     }
 
     .variables-card {
-        background-color: transparent;
+        background-color: var(--color_mode);
         display: flex;
         align-items: start;
         justify-content: start;
@@ -55,7 +62,6 @@
             }
             div.content  {
                 background-color: transparent;
-                // display: flex;
                 height: 3.5rem;
                 font-size: 0.70rem;
                 font-weight: 500;   
@@ -63,33 +69,24 @@
             .variable-row {
                 display: grid;
                 width: 100%;
-                grid-template-columns: 0.15fr 0.20fr 0.9fr 0.75fr 0.5fr 0.87fr 0.87fr 0.75fr; 
+                grid-template-columns: 0.17fr 0.20fr 0.9fr 0.75fr 0.5fr 0.87fr 0.87fr 0.75fr; 
                 grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
-
+                
                 input {font-size: 1rem; height: 1rem;}
                 i {font-weight: 200;}
-                .col1,.col2,.col3,.col4,.col5,.col6 {cursor: pointer;}
-                .col2 {
+                .col1,.col2,.col3,.col4,.col5,.col6 {
                     background-color: transparent;
                     display: flex;
                     align-items: center;
                     justify-content: start;
-                    // grid-column: span 2;
+                    cursor: pointer;
                 }
+                .col1 {padding-left:6px}
                 .span2 {grid-column: span 2;}
-                .col1,.col3,.col4,.col5 {
-                    background-color: green;
-                    background-color: transparent;
-                    display: flex;
-                    align-items: center;
-                    justify-content: start;
-                }
                 .col6 {
-                    background-color: transparent;
-                    display: flex;
-                    align-items: center;
                     justify-content: center;
                 }
+                .height3rem {height: 3rem;}
             }
             
         }
@@ -125,7 +122,6 @@
                 align-items: center;
                 justify-content: end;
                 padding-right: 15px;
-
                 button {
                     background-color: #86469C;
                     margin-left: 5px;

@@ -53,8 +53,10 @@ button:hover {
 }
 
 .edit, .delete, .renew, .copy {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     width:60px;
+    height: 2.0rem;
+    border-radius: 6px;
     margin-inline: 4px;
     margin-bottom: 0px;
     padding: 4px;

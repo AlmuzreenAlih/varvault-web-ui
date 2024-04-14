@@ -10,9 +10,9 @@ function Dashboard() {
   const cancelToken = axios.CancelToken.source();
   const [userDetails, setuserDetails] = useState({
     created: "",
-    variablesList: "",
-    tokensList: "",
-    logsList: "",
+    variablesList: [],
+    tokensList: [],
+    logsList: [],
     cnts: []
   })
   useEffect(() => {
@@ -35,7 +35,7 @@ function Dashboard() {
       if (axios.isCancel(err)) {
         console.log("Request cancelled:", err.message);
       } else {
-        alert("register wrong2");
+        alert("Cannot connect to the server.");
       }
     });
 

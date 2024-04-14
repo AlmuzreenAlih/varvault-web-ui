@@ -8,11 +8,11 @@
     width: var(--SideBarWidth);
     height: 100%;
 
-    border-right: 1px solid var(--color_contrast);
+    border-right: 1px solid var(--shadow);
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
     z-index:100;
 
-    background-color: transparent;
+    background-color: var(--color_mode);
     display: flex;
     align-items: start;
     justify-content: center;
@@ -47,7 +47,7 @@
         justify-content: start;
         width: 100%;
         
-        color: black;
+        color: var(--color_contrast);
         font-weight: 500;
         font-size: 14px;
         
@@ -55,7 +55,9 @@
         padding-inline:14px;
         i {margin-right: 3px; font-weight: 300;}
     }
-
+    a:hover {
+        background-color: var(--color_theme2);
+    }
     .selected {background-color: var(--color_theme2);}
 
     .user-settings {

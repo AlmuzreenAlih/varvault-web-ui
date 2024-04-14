@@ -7,30 +7,33 @@ import Button from '../../components/Button/Button';
 function VariableRow(props) {
     const [buttonVisibility, setButtonVisibility] = useState("hidden");
     function handleOnMouseOver(e) {
-        console.log("first")
-        setButtonVisibility("visible")
+        setBackgroundColor("var(--color_theme2)");
+        setButtonVisibility("visible");
     }
     function handleOnMouseLeave(e) {
-        console.log("first")
-        setButtonVisibility("hidden")
+        setBackgroundColor("transparent");
+        setButtonVisibility("hidden");
     }
-    
+    const [backgroundColor, setBackgroundColor] = useState("transparent");
     return (
-        <div className="variable-row content" onMouseOver={handleOnMouseOver} onMouseLeave={handleOnMouseLeave}>
-            <div className='col1'><input type="checkbox" name={"box"+(props.keyy+1)} checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
-            <div className="col2">
+        <div className="variable-row content"
+             onMouseOver={handleOnMouseOver} onMouseLeave={handleOnMouseLeave}>
+            <div style={{backgroundColor: backgroundColor}} className='col1'>
+                <input type="checkbox" name={"box"+(props.keyy+1)} 
+                       checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
+            <div style={{backgroundColor: backgroundColor}} className="col2">
                 { isPressure(props.unit) ? <Pressure /> : 
                   isTemperature(props.unit) ? <Temperature /> :  
                   isWeight(props.unit) ? <Weight /> :  
                   isVoltage(props.unit) ? <Voltage /> : 
                   <Default bg={props.bg} letter={props.letter}/>}
             </div>
-            <div className='col3'>{props.variable_name}</div>
-            <div className='col4'>{props.variable_value + " " + props.variable_unit}</div>
-            <div className='col4'>{props.variable_type}</div>
-            <div className='col5'>{formatDate3(props.created_at)}</div>
-            <div className='col5'>{formatDate3(props.updated_at)}</div>
-            <div className='col6'>
+            <div style={{backgroundColor: backgroundColor}} className='col3'>{props.variable_name}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col4'>{props.variable_value + " " + props.variable_unit}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col4'>{props.variable_type}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col5'>{formatDate3(props.created_at)}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col5'>{formatDate3(props.updated_at)}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col6 height3rem'>
                 <Button style={{visibility: buttonVisibility}} 
                     className="edit"
                     onClick={()=>{props.showEditPanel(props.id,props.variable_name, props.variable_value,props.variable_type,props.variable_unit)}} 

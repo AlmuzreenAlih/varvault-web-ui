@@ -14,7 +14,7 @@
     grid-gap: 13px;    
 
     .card {
-        background-color: rgb(235, 235, 235);
+        background-color: var(--color_mode);
         display: flex;
         flex-direction: column;
         
@@ -79,7 +79,7 @@
     .logs-card {
         grid-row: span 2;
 
-        background-color: transparent;
+        background-color: var(--color_mode);
         display: flex;
         align-items: start;
         justify-content: start;
@@ -126,13 +126,13 @@
             justify-content: center;
             flex-basis: 10%;
             width: 100%;
-
             cursor: pointer;
+            a:visited {color: var(--color_contrast);}
         }
     }
 
     .variables-card {
-        background-color: transparent;
+        background-color: var(--color_mode);
         display: flex;
         align-items: start;
         justify-content: start;
@@ -180,13 +180,13 @@
             justify-content: center;
             flex-basis: 10%;
             width: 100%;
-
             cursor: pointer;
+            a:visited {color: var(--color_contrast);}
         }
     }
 
     .tokens-card {
-        background-color: transparent;
+        background-color: var(--color_mode);
         display: flex;
         align-items: start;
         justify-content: start;
@@ -242,8 +242,8 @@
             justify-content: center;
             flex-basis: 10%;
             width: 100%;
-
             cursor: pointer;
+            a:visited {color: var(--color_contrast);}
         }
     }
 }

@@ -10,25 +10,47 @@
   
 }
 
+$mobile_size: 1000px;
+$mobile_factor: 1;
+@mixin mobile {
+    @media (max-width: $mobile_size) {
+        @content;
+    }
+}
+
 html {
   font-size: 16px;
 }
 
 :root {
   --color_theme1: #22092C;
-  --color_theme2: #d992f5;
+  --color_theme2: rgba(217,146,245,1);
   
   --pageBreak: 1rem;
   --color_logo: #872341;
   --color_mode: white;
-  --color_contrast: rgb(195, 195, 195);
+  --color_contrast: black;
+  --shadow: rgb(195,195,195);
   --color_secondary: #F9F8FD;
+  --color_tertiary: #a7a7a7;
   --font_title: 1.5rem;
   --font_05: 0.5rem;
   --font_1: 1rem;
   --font_1h: 1.5rem;
   --font_2: 2rem;
   --font_2h: 2.5rem;
+  color: var(--color_contrast);
+
+  .dark-theme {
+    --color_mode:  rgb(25, 25, 25);
+    --color_theme2: rgba(217,146,245,0.25);
+    --color_contrast: white;
+    --color_secondary: rgb(20, 20, 20);
+    --color_tertiary: #a7a7a7;
+    --shadow: rgb(24,24,24);
+    color: var(--color_contrast);
+  }
+  
 }
 
 .flex-x {display: flex; flex-direction: row;}
@@ -45,4 +67,20 @@ html {
 
 .vanished {
   z-index: -100;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #a8bbbf;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
 }

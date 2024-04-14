@@ -16,6 +16,12 @@ function VariableEditPanel(props) {
     function handlerTypeChanged(e) {
         props.setEditInputValues({ ...props.editInputValues, variable_type: e.target.innerHTML })
     }
+    const [TFStyles, setTFStyles] = useState(
+        { input: { color: 'var(--color_contrast)',
+                   '&::placeholder': {opacity: 0, color:'var(--color_contrast)'}},
+          label: {color:'var(--color_contrast)'},
+          fieldset: { borderColor: 'var(--color_tertiary)' } }
+    )
     return (<>
         { props.editingMode && <div className='whole-page'>
             <form ref={props.forwardedRef} className={"edit-panel " + props.className}>
@@ -27,26 +33,26 @@ function VariableEditPanel(props) {
 
                 <TextField name="variable_name" label="Name" value={props.editInputValues.variable_name}
                     onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'
-                    className='heightInput'/>
+                    className='heightInput' sx={TFStyles}/>
 
                 <span className='pbrk'></span>
 
                 <TextField name="variable_value" label="Value" value={props.editInputValues.variable_value}
-                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
+                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small' sx={TFStyles}/>
                     
                 <span className='pbrk'></span>
 
                 <Autocomplete
                     disablePortal
                     options={["","numeric","text","boolean"]}
-                    sx={{width: "100%"}} size='small'
+                    sx={{...TFStyles, width: "100%"}} size='small'
                     renderInput={(params) => <TextField {...params} name="variable_type" label="Type" />}
                     value={props.editInputValues.variable_type} onChange={e=>{handlerTypeChanged(e)}}
                 />
 
                 <span className='pbrk'></span>
                 <TextField name="variable_unit" label="Unit" value={props.editInputValues.variable_unit}
-                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'/>
+                    onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small' sx={TFStyles}/>
 
                 <span className='pbrk'></span>
 

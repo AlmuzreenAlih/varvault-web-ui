@@ -26,11 +26,11 @@ function TokenRow(props) {
 
     const [buttonVisibility, setButtonVisibility] = useState("hidden");
     function handleOnMouseOver(e) {
-        console.log("first")
+        setBackgroundColor("var(--color_theme2)")
         setButtonVisibility("visible")
     }
     function handleOnMouseLeave(e) {
-        console.log("first")
+        setBackgroundColor("transparent")
         setButtonVisibility("hidden")
     }
     function copyToClip(str) {
@@ -42,20 +42,22 @@ function TokenRow(props) {
         document.body.removeChild(el);
         props.setPopup("Token Copied Successfuly")
       }
-      
+    const [backgroundColor, setBackgroundColor] = useState("transparent");
     return (
         <div className="token-row content" onMouseOver={handleOnMouseOver} onMouseLeave={handleOnMouseLeave}> 
-            <div className='col1'><input type="checkbox" name={"box"+(props.keyy+1)} checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
-            <div className="col2">
+            <div style={{backgroundColor: backgroundColor}} className='col1'>
+                <input type="checkbox" name={"box"+(props.keyy+1)} 
+                       checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
+            <div style={{backgroundColor: backgroundColor}} className="col2">
                 <TokenIcon id={props.id}/>
             </div>
-            <div className='col3'>{props.token}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col3'>{props.token}</div>
             
 
-            <div className='col4'>{timeRemaining}</div>
-            <div className='col5'>{formatDate3(props.created_at)}</div>
-            <div className='col5'>{formatDate3(props.updated_at)}</div>
-            <div className='col6'>
+            <div style={{backgroundColor: backgroundColor}} className='col4'>{timeRemaining}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col5'>{formatDate3(props.created_at)}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col5'>{formatDate3(props.updated_at)}</div>
+            <div style={{backgroundColor: backgroundColor}} className='col6 height3rem'>
             <Button style={{visibility: buttonVisibility}} 
                     className="copy"
                     onClick={()=>{copyToClip(props.token)}} 

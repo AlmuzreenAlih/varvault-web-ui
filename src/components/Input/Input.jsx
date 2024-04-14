@@ -45,7 +45,8 @@ function Input(props) {
                           className='input'
                           spellCheck="false"
                           onFocus={e=>handleInputFocused(e)} 
-                          onBlur={e=>handleInputBlurred(e)} />
+                          onBlur={e=>handleInputBlurred(e)} 
+                          autoComplete="new-password"/>
 
         <p ref={placeholder}
            style={{...props.style, left:"10px"}} 

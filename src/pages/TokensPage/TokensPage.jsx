@@ -12,11 +12,8 @@ function TokensPage() {
   const cookies = new Cookies();
   const cancelToken = axios.CancelToken.source();
   const [userDetails, setuserDetails] = useState({
-    created: "",
-    variablesList: "",
-    tokensList: "",
-    logsList: "",
-    cnts: null
+    tokensList: [],
+    cnts: {tokens: 0}
   })
   const [toSave, setToSave] = useState(false);
   const [page, setPage] = useState(1) // Pagination
@@ -32,19 +29,15 @@ function TokensPage() {
             cancelToken: cancelToken.token,})
     .then((res) => {
       setuserDetails({ ...userDetails, 
-        created: res.data['created_at'],
-        variablesList: res.data['variables'], 
         tokensList: res.data['tokens'],
-        logsList: res.data['logs'],
-        cnts: [res.data['cnt_variables'],res.data['cnt_tokens'],res.data['cnt_logs']]
+        cnts: {tokens: res.data['cnt_tokens']}
     	})
+      if ((res.data['tokens'].length === 0) && (res.data['cnt_tokens'] !== 0)) {setPage(1);}
+      resetCheckboxes();
     })
     .catch((err) => {
-      if (axios.isCancel(err)) {
-        console.log("Request cancelled:", err.message);
-      } else {
-        alert("register wrong2");
-      }
+      if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
+      else {alert("Cannot connect to the server.")}
     });
     return () => {cancelToken.cancel('Request cancelled');};
   }, [toSave,page,order_by,order])
@@ -111,13 +104,14 @@ function TokensPage() {
     .then((res) => {
       if (res.data['msg'] === "Success") {
         setPopup("Deleted Successfully");
-        }
+      }
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("Request cancelled:", err.message);
       } else {
         if (err.response.status === 401) {setPopup("Unauthorized");}
+        else {setPopup(err.response.data.error);}
       }
     })
     .finally(()=>{
@@ -147,6 +141,7 @@ function TokensPage() {
           console.log("Request cancelled:", err.message);
         } else {
           if (err.response.status === 401) {setPopup("Unauthorized");}
+          else {setPopup(err.response.data.error);}
         }
       })
       .finally(()=>{
@@ -170,6 +165,7 @@ function TokensPage() {
           console.log("Request cancelled:", err.message);
         } else {
           if (err.response.status === 401) {setPopup("Unauthorized");}
+          else {setPopup(err.response.data.error);}
         }
       })
       .finally(()=>{
@@ -185,13 +181,14 @@ function TokensPage() {
       .then((res) => {
         if (res.data['msg'] === "Success") {
           setPopup("Token Generated Successfully");
-          }
+        }
       })
       .catch((err) => {
         if (axios.isCancel(err)) {
           console.log("Request cancelled:", err.message);
         } else {
           if (err.response.status === 401) {setPopup("Unauthorized");}
+          else {setPopup(err.response.data.error);}
         }
       })
       .finally(()=>{

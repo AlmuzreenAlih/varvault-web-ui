@@ -29,7 +29,7 @@ function Content(props) {
 	const [variablesList, setVariablesList] = useState([]);
   const [variablesCursor, setVariablesCursor] = useState(0);
 	useEffect(() => {
-    if (props.variablesList) {
+    if ((props.variablesList) && (props.variablesList.length > 0)) {
       setVariablesList(props.variablesList);
       setVariablesCursor(props.variablesList[props.variablesList.length-1].id)
     }
@@ -39,7 +39,7 @@ function Content(props) {
   const [tokensList, setTokensList] = useState([]);
   const [tokensCursor, setTokensCursor] = useState(0);
   useEffect(() => {
-    if (props.tokensList) {
+    if ((props.tokensList) && (props.tokensList.length>0)) {
       setTokensList(props.tokensList);
       setTokensCursor(props.tokensList[props.tokensList.length-1].id)
     }
@@ -49,7 +49,7 @@ function Content(props) {
   const [logsList, setLogsList] = useState([]); 
   const [logsCursor, setLogsCursor] = useState(0);
   useEffect(() => {
-    if (props.logsList) {
+    if ((props.logsList) && (props.logsList.length > 0)) {
       setLogsList(props.logsList);
       setLogsCursor(props.logsList[props.logsList.length-1].id);
     }
@@ -167,7 +167,7 @@ function Content(props) {
           ))}
           <div ref={loader_log} style={{visibility: "hidden"}} className="loader"><span></span></div>
         </div>
-        {/* <p className='view-all'>View All</p> */}
+        <p className='view-all'><a href="/logs">View All</a></p>
       </LogsCard>
 
       <VariablesCard title="Variables" className="variables-card">
@@ -183,7 +183,7 @@ function Content(props) {
           ))}
           <div ref={loader_var} style={{visibility: "hidden"}} className="loader"><span></span></div>
         </div>
-        {/* <p className='view-all'>View All</p> */}
+        <p className='view-all'><a href="/variables">View All</a></p>
       </VariablesCard>
       
       <TokensCard className="tokens-card">
@@ -194,7 +194,7 @@ function Content(props) {
           ))}
           <div ref={loader_tok} style={{visibility: "hidden"}} className="loader"><span></span></div>
         </div>
-        {/* <p className='view-all'>View All</p> */}
+        <p className='view-all'><a href="/tokens">View All</a></p>
       </TokensCard>
     </div>
   )

@@ -24,13 +24,14 @@ function VariablesPage() {
   const [page, setPage] = useState(1) // Pagination
   const [order_by, setOrder_by] = useState("id") // Order by column
   const [order, setOrder] = useState(true) // true is DESC and false is ASC
+  const [search, setSearch] = useState("") // true is DESC and false is ASC
   useEffect(() => {
     axios({ url: 'http://127.0.0.1:3000/private/get-all',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
                     page: page , target:"variables",
-                    order_by: order_by, order: order}, 
+                    order_by: order_by, order: order, search: search}, 
             cancelToken: cancelToken.token,})
     .then((res) => {
       setuserDetails({ ...userDetails, 
@@ -39,17 +40,19 @@ function VariablesPage() {
         tokensList: res.data['tokens'],
         logsList: res.data['logs'],
         cnts: [res.data['cnt_variables'],res.data['cnt_tokens'],res.data['cnt_logs']]
-    	})
+    	});
+      if ((res.data['variables'].length === 0) && (res.data['cnt_variables'] !== 0)) {setPage(1);}
+      resetCheckboxes();
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
         console.log("Request cancelled:", err.message);
       } else {
-        alert("register wrong2");
+        alert("Cannot connect to the server.");
       }
     });
     return () => {cancelToken.cancel('Request cancelled');};
-  }, [toSave,page,order_by,order])
+  }, [toSave,page,order_by,order,search])
 
   // Editing
   const [editingMode, setEditingMode] = useState(false); //To Show the editing dialog
@@ -105,6 +108,7 @@ function VariablesPage() {
           if (err.response.status === 452) {setPopup("Variable name is required.");}
           if (err.response.status === 409) {setPopup("Something");}
           if (err.response.status === 422) {setPopup("Variable Name already used in other variables.");}
+          else {setPopup(err.response.data.error);}
         }
       })
       .finally(()=>{
@@ -133,6 +137,7 @@ function VariablesPage() {
           if (err.response.status === 451) {setPopup("Mismatch of type and value");}
           if (err.response.status === 409) {setPopup("Something");}
           if (err.response.status === 422) {setPopup("Variable Name already used in other variables.");}
+          else {setPopup(err.response.data.error);}
         }
       })
       .finally(()=>{
@@ -167,6 +172,7 @@ function VariablesPage() {
         if (err.response.status === 451) {setPopup("Mismatch of type and value");}
         if (err.response.status === 409) {setPopup("Something");}
         if (err.response.status === 422) {setPopup("Variable Name already used in other variables.");}
+        else {setPopup(err.response.data.error);}
       }
     })
     .finally(()=>{
@@ -222,6 +228,7 @@ function VariablesPage() {
         if (err.response.status === 451) {setPopup("Mismatch of type and value");}
         if (err.response.status === 409) {setPopup("Something");}
         if (err.response.status === 422) {setPopup("Variable Name already used in other variables.");}
+        else {setPopup(err.response.data.error);}
       }
     })
     .finally(()=>{
@@ -254,6 +261,7 @@ function VariablesPage() {
                       page={page} setPage={setPage}
                       order_by={order_by} setOrder_by={setOrder_by}
                       order={order} setOrder={setOrder}
+                      search={search} setSearch={setSearch}
 
                       CheckBoxes={CheckBoxes} setCheckBoxes={setCheckBoxes}
                       deleteSelected={deleteSelected} resetCheckboxes={resetCheckboxes}
