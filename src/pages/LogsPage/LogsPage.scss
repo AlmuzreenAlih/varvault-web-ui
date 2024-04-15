@@ -1,0 +1,193 @@
+.LogsContentDiv {
+    background-color: var(--color_secondary);
+    position: absolute;
+    height: 100%;
+    width: calc(100% - var(--SideBarWidth));
+    padding: 25px;
+    margin-left: var(--SideBarWidth);
+
+    font-size: 14px;
+
+    display: grid;
+    grid-gap: 13px;    
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    .card {
+        background-color: rgb(235, 235, 235);
+        display: flex;
+        flex-direction: column;
+        
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        padding:15px;
+        padding-bottom: 9px;
+        box-shadow: 1px 3px 10px 0 rgba(0,0,0,0.5);
+    
+        .title {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            width: 100%;
+            border-bottom: 1px solid #888;
+        }
+        overflow: hidden;
+    }
+
+    .logs-card {
+        background-color: var(--color_mode);
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        flex-direction: column;
+
+        height: 100%;
+        grid-row: span 2;
+        .log-part {
+            flex-basis: 100%;
+            width: 100%;
+            overflow: auto;
+
+            div.content  {
+                background-color: transparent;
+                // display: flex;
+                height: 3.5rem;
+                font-size: 0.7rem;
+                font-weight: 500;   
+            }
+            .logs-row {
+                background-color: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+
+                padding-top: 5px;
+                padding-bottom: 20px;
+                padding-inline: 10px;
+
+                width: 100%; 
+
+                .msg {
+                    margin-left: 8px;
+                    flex-basis: 85%;
+                    text-align: start;
+                    hyphens: auto;
+                }
+
+                .msg > :nth-child(2) {
+                    font-size: 0.70rem;
+                    font-weight: 600;
+                    color: #0866FF;
+                }
+            }
+            
+        }
+        .view-all {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding-top: 9px;
+            margin-top: 9px;
+            border-top: 1px solid #888;
+            .counts {
+                width:100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 8px;
+            }
+            .button1 {
+                width:30%;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                padding-right: 15px;
+
+                button {
+                    background-color: #A0153E;
+                    margin-left: 5px;
+                }
+            }
+            .button2 {
+                width:30%;
+                display: flex;
+                align-items: center;
+                justify-content: end;
+                padding-right: 15px;
+
+                button {
+                    background-color: #86469C;
+                    margin-left: 5px;
+                }
+            }
+        }
+        .paging {
+            width:100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .date {
+        // background-color: black;
+        width:100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        
+        position: relative;
+        .title {
+            position: absolute;
+            top:0%; left:0px;
+            font-size: 1rem;
+            font-weight: 500;
+            font-style: italic;
+        }
+        .arrow {
+            color: var(--color_contrast);
+            font-size: 2rem;
+            // color: white !important;
+            // background-color: #86469C;
+        }
+    }
+}
+
+.MuiDateCalendar-root {
+    max-height: 227px !important;
+
+    .MuiPickersCalendarHeader-root {
+        min-height: 24px !important;
+        max-height: 24px !important;
+        margin-block: 1px !important;
+        
+      }
+    
+    .MuiDayCalendar-weekContainer {
+        margin-block: 1px !important;
+    }
+
+    .MuiDayCalendar-weekDayLabel {
+        height: 27px !important;
+        width: 27px !important;
+        margin-inline: 6px !important;
+        color: var(--color_contrast) !important;
+    }
+
+    .MuiPickersDay-root {
+        height: 27px !important;
+        width: 27px !important;
+        margin-inline: 6px !important;
+        color: var(--color_contrast) !important;
+    }
+    
+    .MuiSvgIcon-root {
+        path {
+            color: var(--color_contrast) !important;
+        }
+    }
+}
+

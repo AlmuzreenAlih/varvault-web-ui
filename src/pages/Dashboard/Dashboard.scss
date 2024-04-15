@@ -1,3 +1,10 @@
+$mobile_size: 1000px; $mobile_factor: 1;
+@mixin mobile {
+    @media (max-width: $mobile_size) {
+        @content;
+    }
+}
+
 .ContentDiv {
     background-color: var(--color_secondary);
     position: absolute;
@@ -13,6 +20,11 @@
     grid-template-rows: 1fr 4fr;
     grid-gap: 13px;    
 
+    @include mobile {
+        grid-template-columns: 1fr;
+        grid-template-rows: 170px 50vh 50vh 50vh;
+        height: fit-content;
+    }
     .card {
         background-color: var(--color_mode);
         display: flex;
@@ -32,6 +44,9 @@
 
     .user-card {
         grid-column: span 2;
+        @include mobile {
+            grid-column: span 1;
+        }
         .header {
             height: 100%;
             background-color: transparent;
@@ -78,7 +93,9 @@
 
     .logs-card {
         grid-row: span 2;
-
+        @include mobile {
+            grid-row: span 1;
+        }
         background-color: var(--color_mode);
         display: flex;
         align-items: start;

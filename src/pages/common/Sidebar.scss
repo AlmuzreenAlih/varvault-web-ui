@@ -1,5 +1,11 @@
+$mobile_size: 1000px; $mobile_factor: 1;
+@mixin mobile {
+    @media (max-width: $mobile_size) {@content;}}
 :root {
     --SideBarWidth: 200px;
+    @include mobile {
+        --SideBarWidth: 0px;
+    }
 }
 
 .SideBarDiv {

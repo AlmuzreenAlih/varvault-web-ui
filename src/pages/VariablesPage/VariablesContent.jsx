@@ -93,6 +93,7 @@ function VariablesContent(props) {
     const { name, value } = e.target;
     setSearch(value);
     if (value === "") {
+      clearTimeout(timer.current);
       props.setSearch(value);
     } else {
       clearTimeout(timer.current);

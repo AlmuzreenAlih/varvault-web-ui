@@ -5,6 +5,7 @@ import PrivateRoutes from './utils/PrivateRoutes'
 import Dashboard from './pages/Dashboard/Dashboard'
 import VariablesPage from './pages/VariablesPage/VariablesPage'
 import TokensPage from './pages/TokensPage/TokensPage'
+import LogsPage from './pages/LogsPage/LogsPage'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='/variables' element={<VariablesPage />} />
             <Route path='/tokens' element={<TokensPage />} />
+            <Route path='/logs' element={<LogsPage />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
       </Routes>
