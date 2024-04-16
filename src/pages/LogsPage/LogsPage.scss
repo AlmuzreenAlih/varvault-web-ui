@@ -10,8 +10,8 @@
 
     display: grid;
     grid-gap: 13px;    
-    grid-template-columns: 1.3fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 1.3fr 1fr;
     .card {
         background-color: rgb(235, 235, 235);
         display: flex;
@@ -30,6 +30,44 @@
             padding-bottom: 8px;
             width: 100%;
             border-bottom: 1px solid #888;
+            display: flex; align-items: center; justify-content: start;
+
+            .log-label {
+                font-size: 1.1rem;
+                width: 70%;
+            }
+
+            .MuiFormControl-root {
+                margin-left: 3px;
+                min-width: 200px;
+                width: 200px;
+                // height: 25px;
+                .MuiFormLabel-root {
+                    color: var(--color_contrast);
+                    font-weight: 500;
+                    bottom: unset;
+                    top: 0;
+                }
+                
+                // .MuiButtonBase-root {
+
+                // }
+                .MuiSvgIcon-root {
+                    color: var(--color_contrast);
+                    font-weight: 500;
+                }
+                .MuiInputBase-root {
+                    .MuiSelect-select {
+                        color: var(--color_contrast);
+                        font-weight: 500;
+                    }
+                }
+
+                .MuiOutlinedInput-notchedOutline {
+                    color: var(--color_contrast);
+                    font-weight: 500;
+                }
+            }
         }
         overflow: hidden;
     }
@@ -157,7 +195,7 @@
 }
 
 .MuiDateCalendar-root {
-    max-height: 227px !important;
+    max-height: 240px !important;
 
     .MuiPickersCalendarHeader-root {
         min-height: 24px !important;

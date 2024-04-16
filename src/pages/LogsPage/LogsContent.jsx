@@ -14,6 +14,9 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import './LogsPage.scss'
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 const useStyles = makeStyles((theme) => ({
   ul: {
@@ -50,11 +53,33 @@ function LogsContent(props) {
       props.setStartDate(start.toISOString());
       props.setEndDate(end.toISOString());
     }, [date1,date2])
-    
+
+    const [TFStyles, setTFStyles] = useState(
+        { input: { color: 'var(--color_contrast)',
+                   '&::placeholder': {opacity: 0, color:'var(--color_contrast)'},
+                    width: "100px"},
+          label: {color:'var(--color_contrast)'},
+          fieldset: { borderColor: 'var(--color_tertiary)' } }
+    )
+    function handleOnCategoryChange(e) {
+        const {name, value} = e.target;
+        props.setCategory(value);
+    }
     return (
         <div className='LogsContentDiv'>
         <LogsCard title="Logs" className="logs-card">
-            <strong className="title"> Logs </strong>
+            <div className="title">
+                <strong className='log-label'> Logs </strong>
+                {/* <FilterAltIcon sx={{color: "var(--color_contrast)"}}></FilterAltIcon> */}
+                <TextField name="logs_category" label="Select Filter" defaultValue={""} select
+                    onChange={e=>{handleOnCategoryChange(e)}} variant="outlined" size='small'
+                    className='heightInput' sx={{TFStyles}}>
+                        <MenuItem key="none" value="">None</MenuItem>
+                        <MenuItem key="Account" value="account">Account</MenuItem>
+                        <MenuItem key="Variables" value="variables">Variables</MenuItem>
+                        <MenuItem key="Tokens" value="tokens">Tokens</MenuItem>
+                </TextField>
+            </div>
             <div className="log-part">          
                 {props.logsList.map((Log, index) => (
                     <LogRow key={index} keyy={index} id={Log.id}

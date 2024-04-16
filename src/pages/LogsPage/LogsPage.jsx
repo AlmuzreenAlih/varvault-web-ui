@@ -19,7 +19,7 @@ function LogsPage() {
   const [page, setPage] = useState(1) // Pagination
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-
+  const [category, setCategory] = useState("")
   useEffect(() => {
     axios({ url: 'http://127.0.0.1:3000/private/get-all',
             method: 'post',
@@ -27,7 +27,8 @@ function LogsPage() {
             data: { token: cookies.get('TokenSaved'), 
                     page: page , target:"Logs",
                     order_by: "", order: "",
-                    startDate: startDate, endDate: endDate}, 
+                    startDate: startDate, endDate: endDate,
+                    category:category}, 
             cancelToken: cancelToken.token,})
     .then((res) => {
       setuserDetails({ ...userDetails, 
@@ -43,7 +44,7 @@ function LogsPage() {
     console.log("first")
     return () => {cancelToken.cancel('Request cancelled');};
     
-  }, [toSave,page,startDate,endDate])
+  }, [toSave,page,startDate,endDate,category])
 
   const [popup, setPopup] = useState(false);
   const [dialog, setDialog] = useState(false);
@@ -60,6 +61,8 @@ function LogsPage() {
                  popup={popup} setPopup={setPopup}
                  startDate={startDate} setStartDate={setStartDate}
                  endDate={endDate} setEndDate={setEndDate}
+
+                 category={category} setCategory={setCategory}
                 />
   </div>
   )

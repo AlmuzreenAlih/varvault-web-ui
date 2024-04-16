@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Account, TokenIcon, VariableIcon } from '../../utils/Icons.jsx';
 import { Elapsed, calculateTimeRemaining } from '../../utils/timeUtils.js'
 function Logrow(props) {
+  let colorArray = ["#496989","#E9A89B","#824D74","#2C7865","#FFEBB2","#DD5746"];
+      colorArray = ["#008DDA","#E9A89B","#912BBC","#891652","#FFEBB2","#DD5746"];
   function TimeElapsed({ created_at }) {
     const elapsed = Elapsed(created_at);
 
@@ -22,34 +24,34 @@ function Logrow(props) {
   function LogConstruct(props) {
     return(
       <div className='logs-row'>
-        { props.opCat === "acc_reg" && <> <Account id={props.id} char="person_add"/>
+        { props.opCat === "acc_reg" && <> <Account id={props.id} color={colorArray[3]} char="person_add"/>
             <div className='msg'><p>You registered your account to VarVault Web UI.</p> <TimeElapsed created_at={props.created_at}/></div>
           </> }
-        { props.opCat === "acc_log" && <> <Account id={props.id} char="assignment_ind"/>
+        { props.opCat === "acc_log" && <> <Account id={props.id} color={colorArray[0]} char="assignment_ind"/>
             <div className='msg'><p>You logged in to your account to Var&shy;Vault Web UI.</p> <TimeElapsed created_at={props.created_at}/></div>
           </> }
-        { props.opCat === "acc_us" && <> <Account id={props.id} char="manage_accounts"/>
+        { props.opCat === "acc_us" && <> <Account id={props.id} color={colorArray[2]} char="manage_accounts"/>
             <div className='msg'><p>You changed your account's username.</p> <TimeElapsed created_at={props.created_at}/></div>
           </> }
-        { props.opCat === "acc_pwd" && <> <Account id={props.id} char="manage_accounts"/>
+        { props.opCat === "acc_pwd" && <> <Account id={props.id} color={colorArray[2]} char="manage_accounts"/>
             <div className='msg'><p>You changed your account's password.</p> <TimeElapsed created_at={props.created_at}/></div>
           </> }
-        { props.opCat === "tok_ren" && <> <TokenIcon/> 
+        { props.opCat === "tok_ren" && <> <TokenIcon color={colorArray[0]}/> 
             <div className='msg'><p>You renewed a token.</p><TimeElapsed created_at={props.created_at}/></div>
           </> }
-        { props.opCat === "tok_del" && <> <TokenIcon/>
+        { props.opCat === "tok_del" && <> <TokenIcon color={colorArray[5]}/>
             <div className='msg'><p>You deleted a token.</p><TimeElapsed created_at={props.created_at}/></div>
           </>}
-        { props.opCat === "tok_new" && <> <TokenIcon/>
+        { props.opCat === "tok_new" && <> <TokenIcon color={colorArray[2]}/>
             <div className='msg'><p>You generated a new token.</p><TimeElapsed created_at={props.created_at}/></div>
           </>}
-        { props.opCat === "var_add" && <> <VariableIcon/> 
+        { props.opCat === "var_add" && <> <VariableIcon color={colorArray[2]}/> 
             <div className='msg'><p>You added a variable.</p><TimeElapsed created_at={props.created_at}/></div>
           </> }
-        { props.opCat === "var_del" && <> <VariableIcon/>
+        { props.opCat === "var_del" && <> <VariableIcon color={colorArray[5]}/>
             <div className='msg'><p>You deleted a variable.</p><TimeElapsed created_at={props.created_at}/></div>
           </>}
-        { props.opCat === "var_edi" && <> <VariableIcon/>
+        { props.opCat === "var_edi" && <> <VariableIcon color={colorArray[0]}/>
             <div className='msg'><p>You edited a variable.</p><TimeElapsed created_at={props.created_at}/></div>
           </>}
       </div>

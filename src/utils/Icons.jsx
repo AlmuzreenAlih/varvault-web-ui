@@ -41,17 +41,32 @@ export function Weight(props) {
 
 export function Voltage() {
     return (
-        <svg style={{ backgroundColor: colorArray[3] }} className="unit-symbol" width="219" height="219" viewBox="0 0 219 219" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="109.5" cy="109.5" r="104.5" stroke="black" strokeWidth="10"/>
-            <path d="M109.467 18.1776L71.4674 118.178M151.467 101.178L113.467 201.178M109.5 18L109.5 102M113.5 118V201M110 101.5H152M71 118.5H113" stroke="black"/>
-            <path d="M69 123.5L109.5 18.5V98H153.5L113.5 201.5V123.5H69Z" fill="black" stroke="black"/>
-        </svg>
+        // <svg style={{ backgroundColor: colorArray[3] }} className="unit-symbol" width="219" height="219" viewBox="0 0 219 219" fill="none" xmlns="http://www.w3.org/2000/svg">
+        //     <circle cx="109.5" cy="109.5" r="104.5" stroke="black" strokeWidth="10"/>
+        //     <path d="M109.467 18.1776L71.4674 118.178M151.467 101.178L113.467 201.178M109.5 18L109.5 102M113.5 118V201M110 101.5H152M71 118.5H113" stroke="black"/>
+        //     <path d="M69 123.5L109.5 18.5V98H153.5L113.5 201.5V123.5H69Z" fill="black" stroke="black"/>
+        // </svg>
+//         <svg style={{ backgroundColor: colorArray[3] }} className="unit-symbol" width="176" height="221" viewBox="0 0 176 221" fill="none" xmlns="http://www.w3.org/2000/svg">
+// <circle cx="88" cy="109" r="83" stroke="black" stroke-width="10"/>
+// <line x1="45.5691" y1="60.9693" x2="89.5691" y2="159.969" stroke="black" stroke-width="10"/>
+// <line y1="-5" x2="108.337" y2="-5" transform="matrix(-0.406138 0.913812 0.913812 0.406138 136 63)" stroke="black" stroke-width="10"/>
+// <line x1="88.5" y1="162" x2="88.5" y2="149" stroke="black" stroke-width="7"/>
+// <line x1="91" y1="2.18557e-07" x2="91" y2="31" stroke="black" stroke-width="10"/>
+// <line x1="91" y1="190" x2="91" y2="221" stroke="black" stroke-width="10"/>
+// </svg>
+
+<svg style={{ backgroundColor: colorArray[3]}} className="unit-symbol" width="219" height="219" viewBox="0 0 219 219" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="109.5" cy="109.5" r="104.5" stroke="black" stroke-width="10"/>
+<path d="M129.755 27H93.5755L83 118.232H103.594L93.5755 195L142 88.7483H112.5L129.755 27Z" fill="black" stroke="black"/>
+</svg>
+
+
     )
 }
 
 export function Account(props) {
     return (
-        <div style={{ backgroundColor: colorArray[1] }} className="unit-symbol">
+        <div style={{ backgroundColor: props.color }} className="unit-symbol">
             <i className="material-symbols-outlined">{props.char}</i>
         </div>
     )
@@ -59,7 +74,7 @@ export function Account(props) {
 
 export function TokenIcon(props) {
     return (
-        <div style={{ backgroundColor: colorArray[2] }} className="unit-symbol">
+        <div style={{ backgroundColor: props.color }} className="unit-symbol">
             <i style={{fontWeight: "400"}}className="material-symbols-outlined">key</i>
         </div>
     )
@@ -67,7 +82,7 @@ export function TokenIcon(props) {
 
 export function VariableIcon(props) {
     return (
-        <div style={{ backgroundColor: colorArray[3] }} className="unit-symbol">
+        <div style={{ backgroundColor: props.color }} className="unit-symbol">
             <i style={{fontWeight: "400"}}className="material-symbols-outlined">pin</i>
         </div>
     )
