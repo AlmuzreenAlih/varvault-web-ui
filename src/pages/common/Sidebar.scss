@@ -1,11 +1,7 @@
-$mobile_size: 1000px; $mobile_factor: 1;
-@mixin mobile {
-    @media (max-width: $mobile_size) {@content;}}
+@import '../mobile.scss';
+
 :root {
     --SideBarWidth: 200px;
-    @include mobile {
-        --SideBarWidth: 0px;
-    }
 }
 
 .SideBarDiv {
@@ -13,6 +9,9 @@ $mobile_size: 1000px; $mobile_factor: 1;
     background-color: var(--color_mode);
     width: var(--SideBarWidth);
     height: 100%;
+
+    left: 0;
+    transition: left 0.3s linear;
 
     border-right: 1px solid var(--shadow);
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
@@ -77,5 +76,38 @@ $mobile_size: 1000px; $mobile_factor: 1;
         flex-direction: column;
         margin-bottom: 20px;
 
+    }
+}
+
+.expand-button {
+    background-color: #41B06E;
+    // background-color: var(--color_theme2);
+    border: 0px solid #888;
+    border-radius: 4px;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.5);
+
+    color: white;
+    padding:2px;
+    z-index: -1300;
+    @include mobile { z-index: 1300; }
+    position: fixed;
+    bottom: 15px; left: -2px;
+
+    height: 36px;
+    width: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+        font-size: 1.75rem;
+        font-weight: 600;
+    }
+}
+
+.left-adjust {
+    @include mobile {
+        left: calc(-1 * var(--SideBarWidth));
     }
 }

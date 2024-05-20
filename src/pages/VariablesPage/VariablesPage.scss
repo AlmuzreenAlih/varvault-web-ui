@@ -1,3 +1,5 @@
+@import '../mobile.scss';
+
 .VariablesContentDiv {
     background-color: var(--color_secondary);
     position: absolute;
@@ -6,6 +8,11 @@
     padding: 25px;
     margin-left: var(--SideBarWidth);
 
+    @include mobile {
+        margin-left: 0;
+        width: 100%;
+    }
+    
     font-size: 14px;
 
     display: grid;
@@ -34,7 +41,7 @@
             justify-content: center;
 
             strong {
-                flex-basis: 76%;
+                flex-basis: 76%; @include mobile{flex-basis: 40%;}
             }
         }
         overflow: hidden;
@@ -72,6 +79,11 @@
                 grid-template-columns: 0.17fr 0.20fr 0.9fr 0.75fr 0.5fr 0.87fr 0.87fr 0.75fr; 
                 grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
                 
+                @include mobile {
+                    grid-template-columns: 30px 43px 180px 160px 107px 186px 186px 60px; 
+                    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+                }
+
                 input {font-size: 1rem; height: 1rem;}
                 i {font-weight: 200;}
                 .col1,.col2,.col3,.col4,.col5,.col6 {
@@ -103,6 +115,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                text-align: center;
             }
             .button1 {
                 width:30%;
@@ -110,10 +123,11 @@
                 align-items: center;
                 justify-content: start;
                 padding-right: 15px;
-
                 button {
                     background-color: #A0153E;
                     margin-left: 5px;
+                    
+                    @include mobile {padding-inline: 2px; width: 70px; }
                 }
             }
             .button2 {
@@ -122,9 +136,11 @@
                 align-items: center;
                 justify-content: end;
                 padding-right: 15px;
+
                 button {
                     background-color: #86469C;
                     margin-left: 5px;
+                    @include mobile {padding-inline: 2px; width: 70px; }
                 }
             }
         }
@@ -133,6 +149,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            @include mobile {margin-top: 8px;}
         }
     }
 }

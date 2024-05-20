@@ -9,9 +9,11 @@ function initializeDocPage() {
 
 document.addEventListener('DOMContentLoaded', function() {
   initializeDocPage();
-  if (cookies.get('dark-mode')) {
-    document.body.classList.add('dark-theme');
-  } else {
-    document.body.classList.remove('dark-theme');
+  if ((window.location.pathname !== '/login')) {
+    if (cookies.get('dark-mode')) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
   }
 });

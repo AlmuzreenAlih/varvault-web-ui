@@ -21,10 +21,6 @@ function TokensContent(props) {
   const classes = useStyles();
   const colorArray = ["#8B93FF","#E9A89B","#D875C7","#90D26D","#FFEBB2",];
   
-	// COUNTINGS
-	
-	// VARIABLE LIST
-
   // Visibilities
   const [deleteVisibility, setDeleteVisibility] = useState("hidden")
   useEffect(() => {
@@ -33,6 +29,16 @@ function TokensContent(props) {
     }
     setDeleteVisibility("hidden");
   }, [props.CheckBoxes]);
+
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 600); // Set the breakpoint as per your requirement
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => {window.removeEventListener('resize', handleResize);};
+    }, []); // Only run once on mount
 
   // Pagination
   function handleChange(e,value) {
@@ -97,13 +103,13 @@ function TokensContent(props) {
         <div className='view-all'>
         <div className="button1">
           <Button style={{visibility: deleteVisibility}} className="button_bottom"
-                  onClick={props.deleteSelected} label="Delete Selected"></Button>
+                  onClick={props.deleteSelected} label={isMobile ? "Delete" : "Delete Selected"}></Button>
           </div>
           <div className="counts">(Displaying {(props.page-1)*10+1} - {props.page*10 < props.cnts.tokens ? props.page*10 : props.cnts.tokens} of {props.cnts.tokens})</div>
           
           <div className="button2">
             <Button className="button_bottom"
-                    onClick={props.addNewToken} label="+ New Token"></Button>
+                    onClick={props.addNewToken} label={isMobile ? "+ New" : "+ New Token"}></Button>
           </div>
         </div>
         <div className="paging">

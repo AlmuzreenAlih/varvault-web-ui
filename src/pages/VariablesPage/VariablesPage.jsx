@@ -9,6 +9,7 @@ import PopupMsg from '../../components/PopupMsg/PopupMsg';
 import DialogYesNo from '../../components/DialogYesNo/DialogYesNo';
 
 import './VariablesPage.scss'
+import Loader from '../../components/Loader/Loader';
 
 function VariablesPage() {
   const cookies = new Cookies();
@@ -25,8 +26,11 @@ function VariablesPage() {
   const [order_by, setOrder_by] = useState("id") // Order by column
   const [order, setOrder] = useState(true) // true is DESC and false is ASC
   const [search, setSearch] = useState("") // true is DESC and false is ASC
+
+  const [Loader_z_index, setLoader_z_index] = useState(90);
   useEffect(() => {
-    axios({ url: 'http://127.0.0.1:3000/private/get-all',
+    setLoader_z_index(90);
+    axios({ url: process.env.HOST_ADDRESS+'/private/get-all',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
@@ -43,6 +47,7 @@ function VariablesPage() {
     	});
       if ((res.data['variables'].length === 0) && (res.data['cnt_variables'] !== 0)) {setPage(1);}
       resetCheckboxes();
+      setLoader_z_index(-1500);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -86,7 +91,7 @@ function VariablesPage() {
   function saveEditing(e) {
     e.preventDefault();
     if (editInputValues.variable_id == "add") {
-      axios({ url: 'http://127.0.0.1:3000/private/add-variable',
+      axios({ url: process.env.HOST_ADDRESS+'/private/add-variable',
               method: 'post',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
               data: { token: cookies.get('TokenSaved'), variable_id: editInputValues.variable_id, 
@@ -116,7 +121,7 @@ function VariablesPage() {
       });
     }
     else {
-      axios({ url: 'http://127.0.0.1:3000/private/edit-variable',
+      axios({ url: process.env.HOST_ADDRESS+'/private/edit-variable',
               method: 'post',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
               data: { token: cookies.get('TokenSaved'), variable_id: editInputValues.variable_id, 
@@ -153,7 +158,7 @@ function VariablesPage() {
     setIdToDelete(id)
   }
   function ondeleteVariable() {
-    axios({ url: 'http://127.0.0.1:3000/private/delete-variable',
+    axios({ url: process.env.HOST_ADDRESS+'/private/delete-variable',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
@@ -210,7 +215,7 @@ function VariablesPage() {
   }
 
   function deleteSelected() {
-    axios({ url: 'http://127.0.0.1:3000/private/delete-multiple-variables', 
+    axios({ url: process.env.HOST_ADDRESS+'/private/delete-multiple-variables', 
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: { token:cookies.get('TokenSaved') , variable_ids: getMatchingIds(CheckBoxes,userDetails.variablesList) },
@@ -266,6 +271,7 @@ function VariablesPage() {
                       CheckBoxes={CheckBoxes} setCheckBoxes={setCheckBoxes}
                       deleteSelected={deleteSelected} resetCheckboxes={resetCheckboxes}
                       />
+      <Loader z_index={Loader_z_index}/>
   </div>
   )
 }

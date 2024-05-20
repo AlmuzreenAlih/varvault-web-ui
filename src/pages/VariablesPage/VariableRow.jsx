@@ -1,19 +1,39 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Pressure, Temperature, Weight, Voltage, Default } from '../../utils/Icons.jsx';
 import { isPressure, isTemperature, isWeight, isVoltage } from '../../utils/icons.js';
 import { formatDate,formatDate3 } from '../../utils/timeUtils.js';
 import Button from '../../components/Button/Button';
 
 function VariableRow(props) {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth <= 600); // Set the breakpoint as per your requirement
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => {window.removeEventListener('resize', handleResize);};
+      }, []); // Only run once on mount
+    
+    useEffect(() => {
+      if (isMobile) {
+        setButtonVisibility("visible");
+      }
+    }, [isMobile])
+
     const [buttonVisibility, setButtonVisibility] = useState("hidden");
     function handleOnMouseOver(e) {
-        setBackgroundColor("var(--color_theme2)");
-        setButtonVisibility("visible");
+        if (!isMobile) {
+            setBackgroundColor("var(--color_theme2)")
+            setButtonVisibility("visible")
+        }
     }
     function handleOnMouseLeave(e) {
-        setBackgroundColor("transparent");
-        setButtonVisibility("hidden");
-    }
+        if (!isMobile) {
+            setBackgroundColor("transparent")
+            setButtonVisibility("hidden")
+        }
+    }   
     const [backgroundColor, setBackgroundColor] = useState("transparent");
     return (
         <div className="variable-row content"

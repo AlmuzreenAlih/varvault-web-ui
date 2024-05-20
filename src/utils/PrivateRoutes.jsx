@@ -2,6 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie';
+import Loading from '../pages/Loading/Loading';
 
 function PrivateRoutes() {
   const [tokenAuthenticated, setTokenAuthenticated] = useState(false);
@@ -13,9 +14,10 @@ function PrivateRoutes() {
       try {
         const cookies = new Cookies();
         var TokenSaved = cookies.get('TokenSaved');
+        // alert(TokenSaved);
         if (TokenSaved == undefined) {TokenSaved="tokenNotSavedYet";}
         // alert("TokenSave: "+TokenSaved);
-        const res = await axios({url: 'http://127.0.0.1:3000/private/auth',
+        const res = await axios({url: process.env.HOST_ADDRESS+'/private/auth',
                                  method: 'post',
                                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                                  data: { token: TokenSaved },
@@ -34,7 +36,7 @@ function PrivateRoutes() {
     return () => {cancelToken.cancel('Request cancelled');};
   }, []);
 
-  return loading ? null : tokenAuthenticated ? <Outlet /> : <Navigate to="/login" />;
+  return loading ? <Loading /> : tokenAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoutes;

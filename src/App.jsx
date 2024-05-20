@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard/Dashboard'
 import VariablesPage from './pages/VariablesPage/VariablesPage'
 import TokensPage from './pages/TokensPage/TokensPage'
 import LogsPage from './pages/LogsPage/LogsPage'
+import Loading from './pages/Loading/Loading'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/variables' element={<VariablesPage />} />
             <Route path='/tokens' element={<TokensPage />} />
             <Route path='/logs' element={<LogsPage />} />
+            <Route path='/loading' element={<Loading />} />
         </Route>
         <Route path='/login' element={<LoginPage />} />
       </Routes>

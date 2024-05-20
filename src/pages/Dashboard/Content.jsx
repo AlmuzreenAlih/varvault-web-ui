@@ -71,7 +71,7 @@ function Content(props) {
       loader_var.current.style.visibility = "visible";  
       clearTimeout(variablesScrollTimer.current)
       variablesScrollTimer.current = setTimeout(() => {
-        axios({ url: 'http://127.0.0.1:3000/private/get-variables', 
+        axios({ url: process.env.HOST_ADDRESS+'/private/get-variables', 
                 method: 'post',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 data: { token:cookies.get('TokenSaved') , cursor: variablesCursor },
@@ -94,7 +94,7 @@ function Content(props) {
       loader_tok.current.style.visibility = "visible";  
       clearTimeout(tokensScrollTimer.current)
       tokensScrollTimer.current = setTimeout(() => {
-        axios({ url: 'http://127.0.0.1:3000/private/get-tokens', 
+        axios({ url: process.env.HOST_ADDRESS+'/private/get-tokens', 
                 method: 'post',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 data: { token:cookies.get('TokenSaved') , cursor: tokensCursor },
@@ -117,7 +117,7 @@ function Content(props) {
       loader_log.current.style.visibility = "visible";  
       clearTimeout(logsScrollTimer.current)
       logsScrollTimer.current = setTimeout(() => {
-        axios({ url: 'http://127.0.0.1:3000/private/get-logs', 
+        axios({ url: process.env.HOST_ADDRESS+'/private/get-logs', 
                 method: 'post',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 data: { token:cookies.get('TokenSaved') , cursor: logsCursor },
@@ -136,67 +136,78 @@ function Content(props) {
   }
 
   return (
-    <div className='ContentDiv'>
-      <UserCard className="user-card">
-        <strong className="title">User Details</strong>
-        <section className='header'>
-          <p>Account Creation</p>
-          <p>Total Write Operations <i title="Only counts the API calls" className='material-symbols-outlined'>help</i></p>
-          <p>Variables Added</p>
-          <p>Tokens Added</p>
-        </section>
+    <>
+    {logsList &&
+      <div className='ContentDiv'>
+        <UserCard className="user-card">
+          <strong className="title">User Details</strong>
+          <section className='header'>
+            <p>Account Creation</p>
+            <p>Total Write Operations <i title="Only counts the API calls" className='material-symbols-outlined'>help</i></p>
+            <p>Variables Added</p>
+            <p>Tokens Added</p>
+          </section>
 
-        <section className='body'>
-          <p>{formatDate2(props.accountCreation)}</p>
-          <p>{countings.logs}</p>
-          <p>{countings.variables}</p>
-          <p>{countings.tokens}</p>
-        </section>
-      </UserCard>
+          <section className='body'>
+            <p>{props.accountCreation ? formatDate2(props.accountCreation) : null}</p>
+            <p>{countings.logs}</p>
+            <p>{countings.variables}</p>
+            <p>{countings.tokens}</p>
+          </section>
+        </UserCard>
 
-      <LogsCard className="logs-card">
-        <strong className="title">Logs ({logsList.length}/{countings.logs})</strong>
-        <div className='logs-part' onScroll={Handler_Scroll_logs}>
-          {logsList.map((Logg, index) => (
-              <Logrow key = {index}
-                      id = {Logg.id}
-                      operation={Logg.operation}
-                      category={Logg.category}
-                      created_at={Logg.created_at}
-                      />
-          ))}
-          <div ref={loader_log} style={{visibility: "hidden"}} className="loader"><span></span></div>
-        </div>
-        <p className='view-all'><a href="/logs">View All</a></p>
-      </LogsCard>
+        <LogsCard className="logs-card">
+          <strong className="title">Logs ({logsList.length}/{countings.logs})</strong>
+          <div className='logs-part' onScroll={Handler_Scroll_logs}>
+            {logsList.map((Logg, index) => (
+                <Logrow key = {index}
+                        id = {Logg.id}
+                        operation={Logg.operation}
+                        category={Logg.category}
+                        created_at={Logg.created_at}
+                        />
+            ))}
+            <div ref={loader_log} style={{visibility: "hidden"}} className="loader"><span></span></div>
+          </div>
+          <p className='view-all'><a href="/logs">View All</a></p>
+        </LogsCard>
 
-      <VariablesCard title="Variables" className="variables-card">
-        <strong className="title">Variables ({variablesList.length}/{countings.variables})</strong>
-        <div className="variable-part" onScroll={Handler_Scroll_Variables}>
-          {variablesList.map((Var, index) => (
-              <Variablerow key={index} unit={Var.unit} 
-                  variable_name={Var.variable_name} value={Var.value + " " + Var.unit}
-                  updated_at={Var.updated_at}
-                  bg = {colorArray[index % colorArray.length]}
-                  letter = {Var.variable_name.substring(0, 1)}
-                  />
-          ))}
-          <div ref={loader_var} style={{visibility: "hidden"}} className="loader"><span></span></div>
-        </div>
-        <p className='view-all'><a href="/variables">View All</a></p>
-      </VariablesCard>
-      
-      <TokensCard className="tokens-card">
-        <strong className="title">Generated Tokens ({tokensList.length}/{countings.tokens})</strong>
-        <div className="tokens-part" onScroll={Handler_Scroll_Tokens}>
-          {tokensList.map((Tok, index) => (
-              <Tokenrow key={index} id = {index + 1} token={Tok.token} created_at={Tok.created_at} />
-          ))}
-          <div ref={loader_tok} style={{visibility: "hidden"}} className="loader"><span></span></div>
-        </div>
-        <p className='view-all'><a href="/tokens">View All</a></p>
-      </TokensCard>
-    </div>
+        <VariablesCard title="Variables" className="variables-card">
+          <strong className="title">Variables ({variablesList.length}/{countings.variables})</strong>
+          <div className="variable-part" onScroll={Handler_Scroll_Variables}>
+            { variablesList.length > 0 ?
+              variablesList.map((Var, index) => (
+                <Variablerow key={index} unit={Var.unit} 
+                    variable_name={Var.variable_name} value={Var.value + " " + Var.unit}
+                    updated_at={Var.updated_at}
+                    bg = {colorArray[index % colorArray.length]}
+                    letter = {Var.variable_name.substring(0, 1)}
+                    /> 
+                )) :
+              <div className='no-tokens'>No variables so far.</div>
+          }
+            <div ref={loader_var} style={{visibility: "hidden"}} className="loader"><span></span></div>
+          </div>
+          <p className='view-all'><a href="/variables">View All</a></p>
+        </VariablesCard>
+        
+        <TokensCard className="tokens-card">
+          <strong className="title">Generated Tokens ({tokensList.length}/{countings.tokens})</strong>
+          <div className="tokens-part" onScroll={Handler_Scroll_Tokens}>
+            { tokensList.length > 0 ?
+              tokensList.map((Tok, index) => (
+                <Tokenrow key={index} id = {index + 1} token={Tok.token} created_at={Tok.created_at} />
+            )) :
+              <div className='no-tokens'>No generated tokens so far.</div>
+            }
+            <div ref={loader_tok} style={{visibility: "hidden"}} className="loader"><span></span></div>
+          </div>
+          <p className='view-all'><a href="/tokens">View All</a></p>
+        </TokensCard>
+      </div>
+    }
+    </>
+          
   )
 }
 

@@ -24,7 +24,7 @@ function Tokenrow(props) {
 
     return (
         <div className="token-row">
-            <TokenIcon id={props.id}/>
+            <TokenIcon id={props.id} color="#D875C7"/>
             <div className='details'>
                 <p className="token">{props.token}</p>
                 <p className="time-left">Expires in {timeRemaining}</p>

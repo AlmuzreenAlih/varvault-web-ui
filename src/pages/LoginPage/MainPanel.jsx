@@ -6,6 +6,8 @@ import Checker from '../../components/Checker/Checker';
 import axios from 'axios';
 import { config } from 'dotenv';
 import Cookies from 'universal-cookie';
+import PopupMsg from '../../components/PopupMsg/PopupMsg';
+import Loader from '../../components/Loader/Loader';
 
 function MainPanel() {
   const [registering, setRegistering] = useState(true);
@@ -14,6 +16,8 @@ function MainPanel() {
 
   const titleMessage = useRef(null);
   const [buttonLabel, setButtonLabel] = useState("Register");
+
+  const timer1 = useRef(null);
   
   const [inputValues, setInputValues] = useState({
     username: "",
@@ -32,6 +36,23 @@ function MainPanel() {
     sym: ".",
     col: "transparent"
   })
+
+  function loginCheck() {
+    if (!(inputValues.username) || !(inputValues.password)) {return "Please, fill out all fields."; }
+    return true;
+  }
+
+  const [usernameAvailability, setUsernameAvailability] = useState(false);
+  function registerCheck() {
+    if (!(inputValues.username) || !(inputValues.password) || !(inputValues.password_confirm)) {
+      return "Please, fill out all fields."; 
+    }
+    if (inputValues.username.length < 7) {return "Username should be minimum of 8 characters"}
+    if (inputValues.password.length < 7) {return "Passwordqwwwwww should be minimum of 8 characters"}
+    if (inputValues.password !== inputValues.password_confirm) {return "Passwords do not match."}
+    if (usernameAvailability === false) {return "Username is already used"}
+    return true;
+  }
 
   useEffect(() => {
     if (!isInitialRender) {
@@ -68,37 +89,48 @@ function MainPanel() {
             sym: "clock_loader_20",
             col: "#6AD4DD"});
         
-        axios({ url: 'http://127.0.0.1:3000/private/username-check',
-                method: 'post',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
-                data: { username: value },
-                cancelToken: cancelToken.token,})
-        .then((res) => {
+        clearTimeout(timer1.current);
+        // console.log("edited")
+        timer1.current = setTimeout(() => {
+          // console.log("checked")
+          axios({ url: process.env.HOST_ADDRESS+'/private/username-check',
+                  method: 'post',
+                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
+                  data: { username: value },
+                  cancelToken: cancelToken.token,})
+          .then((res) => {
+            setUsernameAvailability(true);
             if (res.data['availability']) {
                 setLoginCheckMsg({...LoginCheckMsg, 
                     msg: value + " is available",
                     sym: "check",
                     col: "#9BCF53"});
             }
-        })
-        .catch((err) => {
+          })
+          .catch((err) => {
+            setUsernameAvailability(false);
             if (axios.isCancel(err)) {
             console.log("Request cancelled:", err.message);
             } else {
                 setLoginCheckMsg({...LoginCheckMsg, 
                     msg: value + " is already used.",
                     sym: "close",
-                    col: "#9BCF53"});
+                    col: "#E72929"});
             }
-        });
+          });
+        }, 2000);
+          
       }
     }
     return () => {cancelToken.cancel('Request cancelled');};
   }
 
-  function handlerLoginSubmit() {
+  function handlerLoginSubmit(e) {
+    e.preventDefault();
     if (registering) {
-        axios({ url: 'http://127.0.0.1:3000/private/register',
+      if (!(registerCheck() === true)) {setPopup(registerCheck()); return;}
+      setLoader_z_index(90);
+      axios({ url: process.env.HOST_ADDRESS+'/private/register',
                 method: 'post',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
                 data: { username: inputValues.username, password: inputValues.password },
@@ -114,11 +146,14 @@ function MainPanel() {
             if (axios.isCancel(err)) {
             console.log("Request cancelled:", err.message);
             } else {
-                alert("register wrong2");
+                setPopup(setPopup("Registering went wrong."));
             }
-        });
+        })
+        .finally(()=>{setLoader_z_index(-1500)});
     } else {
-      axios({ url: 'http://127.0.0.1:3000/private/login',
+      if (!(loginCheck() === true)) {setPopup(loginCheck()); return;}
+      setLoader_z_index(90);
+      axios({ url: process.env.HOST_ADDRESS+'/private/login',
               method: 'post',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
               data: { username: inputValues.username, password: inputValues.password },
@@ -132,12 +167,14 @@ function MainPanel() {
         }
       })
       .catch((err) => {
+        console.log(err);
         if (axios.isCancel(err)) {
           console.log("Request cancelled:", err.message);
         } else {
-          alert("Login wrong2");
+          setPopup('Wrong username/password');
         }
-      });
+      })
+      .finally(()=>{setLoader_z_index(-1500)});
     }    
     return () => {cancelToken.cancel('Request cancelled');};
   }
@@ -157,49 +194,67 @@ function MainPanel() {
     }
   }
 
+  const [popup, setPopup] = useState(false);
+  const [Loader_z_index, setLoader_z_index] = useState(-1500);
+
   return (
     <div id="body">
-      <div className='main-panel'>
+      <Loader z_index={Loader_z_index}/>
+
+      <PopupMsg msg={popup} popup={popup} setPopup={setPopup} centered={true}/>
+      <form className='main-panel' autoComplete='nope' method='post'>
         <div className="logo-div">
-          <img src="/assets/logo.png" alt="" />
+          <img src="/assets/logo2.png?x=1s" alt="" />
           <p>VarVault Web UI</p>
         </div>
         
         <p ref={titleMessage} className='login-label txt-md'> Create your VarVault API account </p>
-        <br />
+        <span className='pbrk'></span>
         
         <Input name="username" hint="Username" 
-               onChange={e=>{handlerInputChanged(e)}}/>
+               onChange={e=>{handlerInputChanged(e)}}
+               autoComplete="123456" required/>
         
-        <Checker message={LoginCheckMsg['msg']} 
-                 symbol={LoginCheckMsg['sym']} 
-                 color={LoginCheckMsg['col']}></Checker>
+        {registering ? 
+          <Checker message={LoginCheckMsg['msg']} 
+                  symbol={LoginCheckMsg['sym']} 
+                  color={LoginCheckMsg['col']}></Checker> :
+          <span className='pbrk'></span>
+        }
         
         <Input name="password" 
                 hint="Password" 
                 onChange={e=>handlerInputChanged(e)} 
-                type="password" />
+                type="password" 
+                autoComplete="1234567" required/>
                 
         <span className='pbrk'></span>
         
-        <Input style={!registering ? {visibility: "hidden", position: "absolute"} : null}
-                name="password_confirm" 
-                hint="Confirm Password" 
-                onChange={e=>handlerInputChanged(e)} 
-                type="password" />
+        {registering && (
+          <>
+            <Input name="password_confirm" 
+                   hint="Confirm Password" 
+                   onChange={e=>handlerInputChanged(e)} 
+                   type="password" 
+                   autoComplete="12345678"/>
 
-        <Checker style={!registering ? {visibility: "hidden", position: "absolute"} : null}
-                 message={PasswordMatchMsg['msg']} 
-                 symbol={PasswordMatchMsg['sym']} 
-                 color={PasswordMatchMsg['col']}> </Checker>
-        <br />
+            <Checker message={PasswordMatchMsg['msg']} 
+                     symbol={PasswordMatchMsg['sym']} 
+                     color={PasswordMatchMsg['col']} /> 
+            <br />
+          </>
+        )}
 
         <Button className="login" 
-                onClick={e=>handlerLoginSubmit(e)} 
+                onClick={handlerLoginSubmit} 
                 label={buttonLabel} />
 
         <a className="login-label" onClick={e=>handlerRegisterSwitch(e)}> Already have an account? Login.</a>
-      </div>
+        {/* <p className='footer1'>© 2024 Almuzreen Alih</p> */}
+        
+      </form>
+      <p className='footer'>© 2024 Almuzreen Alih</p>
+
     </div>
   )
 }

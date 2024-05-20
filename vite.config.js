@@ -10,10 +10,11 @@ export default defineConfig({
     // hmr:false,
     host: true,
     port: Number(process.env.PORT),
-    base: '/reactor/'
+    base: '/reactor/',
   },
   define: {
     'process.env.PORT': `${process.env.PORT}`,
     'process.env.KEY': `"${process.env.KEY}"`,
+    'process.env.HOST_ADDRESS': `"${process.env.HOST_ADDRESS}"`,
   },
 })

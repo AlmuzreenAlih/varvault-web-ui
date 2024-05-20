@@ -5,6 +5,7 @@ import Sidebar from '../common/Sidebar';
 import TokensContent from './TokensContent';
 import PopupMsg from '../../components/PopupMsg/PopupMsg';
 import DialogYesNo from '../../components/DialogYesNo/DialogYesNo';
+import Loader from '../../components/Loader/Loader';
 
 import './TokensPage.scss'
 
@@ -19,8 +20,10 @@ function TokensPage() {
   const [page, setPage] = useState(1) // Pagination
   const [order_by, setOrder_by] = useState("id") // Order by column
   const [order, setOrder] = useState(true) // true is DESC and false is ASC
+  const [Loader_z_index, setLoader_z_index] = useState(90);
   useEffect(() => {
-    axios({ url: 'http://127.0.0.1:3000/private/get-all',
+    setLoader_z_index(90);
+    axios({ url: process.env.HOST_ADDRESS+'/private/get-all',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
@@ -34,6 +37,7 @@ function TokensPage() {
     	})
       if ((res.data['tokens'].length === 0) && (res.data['cnt_tokens'] !== 0)) {setPage(1);}
       resetCheckboxes();
+      setLoader_z_index(-1500);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
@@ -96,7 +100,7 @@ function TokensPage() {
 
   function deleteSelected() {
     console.log(getMatchingIds(CheckBoxes,userDetails.tokensList))
-    axios({ url: 'http://127.0.0.1:3000/private/delete-multiple-tokens', 
+    axios({ url: process.env.HOST_ADDRESS+'/private/delete-multiple-tokens', 
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: { token:cookies.get('TokenSaved') , token_ids: getMatchingIds(CheckBoxes,userDetails.tokensList) },
@@ -126,7 +130,7 @@ function TokensPage() {
   const [onCloseMode, setOnCloseMode] = useState("renew");
   function handleOnClose() {
     if (onCloseMode==="renew") {
-      axios({ url: 'http://127.0.0.1:3000/private/renew-token', 
+      axios({ url: process.env.HOST_ADDRESS+'/private/renew-token', 
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: { token:cookies.get('TokenSaved') , token_id: idToRenew},
@@ -149,7 +153,7 @@ function TokensPage() {
       });
     } 
     else if (onCloseMode==="delete") {
-      axios({ url: 'http://127.0.0.1:3000/private/delete-token',
+      axios({ url: process.env.HOST_ADDRESS+'/private/delete-token',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
@@ -173,7 +177,7 @@ function TokensPage() {
       });
     }
     else if (onCloseMode==="newtoken") {
-      axios({ url: 'http://127.0.0.1:3000/private/new-token',
+      axios({ url: process.env.HOST_ADDRESS+'/private/new-token',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved') },
@@ -221,6 +225,7 @@ function TokensPage() {
 
                       popup={popup} setPopup={setPopup}
                       />
+  <Loader z_index={Loader_z_index}/>
   </div>
   )
 }

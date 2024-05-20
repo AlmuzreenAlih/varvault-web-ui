@@ -1,3 +1,5 @@
+@import '../mobile.scss';
+
 .TokensContentDiv {
     background-color: var(--color_secondary);
     position: absolute;
@@ -5,6 +7,11 @@
     width: calc(100% - var(--SideBarWidth));
     padding: 25px;
     margin-left: var(--SideBarWidth);
+
+    @include mobile {
+        margin-left: 0;
+        width: 100%;
+    }
 
     font-size: 14px;
 
@@ -66,6 +73,11 @@
                 grid-template-columns: 0.15fr 0.13fr 0.45fr 0.54fr 0.50fr 0.50fr 0.70fr; 
                 grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
 
+                @include mobile {
+                    grid-template-columns: 25px 47px 140px 194px 180px 180px 130px; 
+                    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+                }
+
                 input {font-size: 1rem; height: 1rem;}
                 i {font-weight: 200;}
                 .col1,.col2,.col3,.col4,.col5,.col6 {cursor: pointer;}
@@ -105,6 +117,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                text-align: center;
             }
             .button1 {
                 width:30%;
@@ -112,10 +125,10 @@
                 align-items: center;
                 justify-content: start;
                 padding-right: 15px;
-
                 button {
                     background-color: #A0153E;
                     margin-left: 5px;
+                    @include mobile {padding-inline: 2px; width: 70px; }
                 }
             }
             .button2 {
@@ -128,6 +141,7 @@
                 button {
                     background-color: #86469C;
                     margin-left: 5px;
+                    @include mobile {padding-inline: 2px; width: 70px; }
                 }
             }
         }
@@ -136,6 +150,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
         }
     }
 }

@@ -5,7 +5,7 @@ import Sidebar from '../common/Sidebar';
 import LogsContent from './LogsContent';
 import PopupMsg from '../../components/PopupMsg/PopupMsg';
 import DialogYesNo from '../../components/DialogYesNo/DialogYesNo';
-
+import Loader from '../../components/Loader/Loader';
 // import './LogsPage.scss'
 
 function LogsPage() {
@@ -20,8 +20,10 @@ function LogsPage() {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [category, setCategory] = useState("")
+  const [Loader_z_index, setLoader_z_index] = useState(90);
   useEffect(() => {
-    axios({ url: 'http://127.0.0.1:3000/private/get-all',
+    setLoader_z_index(90);
+    axios({ url: process.env.HOST_ADDRESS+'/private/get-all',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: cookies.get('TokenSaved'), 
@@ -36,6 +38,7 @@ function LogsPage() {
         cnts: {logs: res.data['cnt_logs']}
     	})
       if ((res.data['logs'].length === 0) && (res.data['cnt_logs'] !== 0)) {setPage(1);}
+      setLoader_z_index(-1500);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {console.log("Request cancelled:", err.message);} 
@@ -64,6 +67,7 @@ function LogsPage() {
 
                  category={category} setCategory={setCategory}
                 />
+    <Loader z_index={Loader_z_index}/>
   </div>
   )
 }

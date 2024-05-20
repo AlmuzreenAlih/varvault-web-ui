@@ -31,13 +31,13 @@ function VariableEditPanel(props) {
 
                 <Input name="variable_id" hint="" className="hidden"/>
 
-                <TextField name="variable_name" label="Name" value={props.editInputValues.variable_name}
+                <TextField style={{width: "100%"}} name="variable_name" label="Name" value={props.editInputValues.variable_name}
                     onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small'
                     className='heightInput' sx={TFStyles}/>
 
                 <span className='pbrk'></span>
-
-                <TextField name="variable_value" label="Value" value={props.editInputValues.variable_value}
+        
+                <TextField style={{width: "100%"}} name="variable_value" label="Value" value={props.editInputValues.variable_value}
                     onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small' sx={TFStyles}/>
                     
                 <span className='pbrk'></span>
@@ -51,7 +51,7 @@ function VariableEditPanel(props) {
                 />
 
                 <span className='pbrk'></span>
-                <TextField name="variable_unit" label="Unit" value={props.editInputValues.variable_unit}
+                <TextField style={{width: "100%"}} name="variable_unit" label="Unit" value={props.editInputValues.variable_unit}
                     onChange={e=>{handlerInputChanged(e)}} variant="outlined" size='small' sx={TFStyles}/>
 
                 <span className='pbrk'></span>

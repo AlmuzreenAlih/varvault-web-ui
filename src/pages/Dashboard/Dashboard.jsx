@@ -4,6 +4,7 @@ import axios from 'axios'
 import Sidebar from '../common/Sidebar';
 import Content from './Content'
 import './Dashboard.scss'
+import Loader from '../../components/Loader/Loader';
 
 function Dashboard() {
   const cookies = new Cookies();
@@ -15,9 +16,11 @@ function Dashboard() {
     logsList: [],
     cnts: []
   })
+  const [Loader_z_index, setLoader_z_index] = useState(90);
   useEffect(() => {
+    setLoader_z_index(90);
     var TokenSaved = cookies.get('TokenSaved');
-    axios({ url: 'http://127.0.0.1:3000/private/get-all',
+    axios({ url: process.env.HOST_ADDRESS+'/private/get-all',
             method: 'post',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, 
             data: { token: TokenSaved },
@@ -30,6 +33,7 @@ function Dashboard() {
         logsList: res.data['logs'],
         cnts: [res.data['cnt_variables'],res.data['cnt_tokens'],res.data['cnt_logs']]
     	})
+      setLoader_z_index(-1500);
     })
     .catch((err) => {
       if (axios.isCancel(err)) {
@@ -50,6 +54,7 @@ function Dashboard() {
              variablesList = {userDetails.variablesList}
              tokensList = {userDetails.tokensList} 
              cnts = {userDetails.cnts}/>
+  <Loader z_index={Loader_z_index}/>
   </div>
   )
 }

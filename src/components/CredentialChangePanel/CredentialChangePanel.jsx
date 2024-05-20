@@ -9,9 +9,14 @@ function CredentialChangePanel(props) {
         props.setDialog(false);
     }
     function Yes() {
-        if (pwMatched) {
+        if (props.changeMode==="pw") {
+            if (pwMatched) {
+                props.onClose();
+            } else {props.setPopup("Passwords do not match.")}
+        } else {
             props.onClose();
-        } else {props.setPopup("Passwords do not match.")}
+        }
+        
     }
     const [confirmPW, setConfirmPW] = useState("");
     const [pwMatched, setPwMatched] = useState(false);
@@ -46,13 +51,13 @@ function CredentialChangePanel(props) {
     )
     return (
         <>
-            {props.dialog && <div ref={props.fref} className='whole-pageCCP'>
+            {props.dialog && <form ref={props.fref} className='whole-pageCCP' onSubmit={Yes}>
                 <div className="dialog-msg">
                     <div className='msg'>{props.dialog}</div>
-                    <div>
+                    <div style={{width: "100%"}}>
                     <TextField name={props.inputName1} label={props.inputLabel1} value={props.inputValues[props.inputName1]}
                                onChange={e=>{props.inputHandler(e);}} variant="outlined" size='small'
-                               className='inputs' style={{width: "300px",color:"white"}} 
+                               className='inputs' style={{width: "100%", color:"white"}} 
                                sx={TFStyles} inputProps={{ autoComplete: 'new-password',form: {
                                 autocomplete: 'off',
                               } }}
@@ -63,7 +68,7 @@ function CredentialChangePanel(props) {
                     <>
                         <TextField name="password_confirm" label="Confirm Password" value={confirmPW}
                                 onChange={confirmHandler} variant="outlined" size='small'
-                                className='inputs' style={{width: "300px", paddingBottom: "0"}} type="password"
+                                className='inputs' style={{width: "100%", paddingBottom: "0"}} type="password"
                                 sx={TFStyles}/>
                         <Checker message={CheckMsg['msg']} 
                                 symbol={CheckMsg['sym']} 
@@ -71,7 +76,7 @@ function CredentialChangePanel(props) {
                     </>}
                     <TextField name={props.inputName2} label={props.inputLabel2} value={props.inputValues[props.inputName2]}
                                onChange={props.inputHandler} variant="outlined" size='small'
-                               className='inputs' style={{width: "300px"}} type="password"
+                               className='inputs' style={{width: "100%"}} type="password"
                                sx={TFStyles} inputProps={{ autoComplete: 'nope' }}/>
                     </div>
                     <div className='buttons'>
@@ -83,7 +88,7 @@ function CredentialChangePanel(props) {
                                 label="Submit" />
                     </div>
                 </div>
-            </div>}
+            </form>}
         </>
     )
 }

@@ -13,6 +13,22 @@ function TokenRow(props) {
         setTimeRemaining(days + "days " + hrs + "hrs " + mins + "mins " + secs + "s");
     }, [props.updated_at]);
 
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth <= 600); // Set the breakpoint as per your requirement
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => {window.removeEventListener('resize', handleResize);};
+      }, []); // Only run once on mount
+    
+    useEffect(() => {
+      if (isMobile) {
+        setButtonVisibility("visible");
+      }
+    }, [isMobile]);
+    
     useEffect(() => {
         const interval = setInterval(() => {
             const timeRem = calculateTimeRemaining(props.updated_at);
@@ -26,12 +42,16 @@ function TokenRow(props) {
 
     const [buttonVisibility, setButtonVisibility] = useState("hidden");
     function handleOnMouseOver(e) {
-        setBackgroundColor("var(--color_theme2)")
-        setButtonVisibility("visible")
+        if (!isMobile) {
+            setBackgroundColor("var(--color_theme2)")
+            setButtonVisibility("visible")
+        }
     }
     function handleOnMouseLeave(e) {
-        setBackgroundColor("transparent")
-        setButtonVisibility("hidden")
+        if (!isMobile) {
+            setBackgroundColor("transparent")
+            setButtonVisibility("hidden")
+        }
     }
     function copyToClip(str) {
         const el = document.createElement('textarea');
@@ -49,7 +69,7 @@ function TokenRow(props) {
                 <input type="checkbox" name={"box"+(props.keyy+1)} 
                        checked={props.CheckBoxes["box"+(props.keyy+1)]} onChange={props.handleCheckBox}/></div>
             <div style={{backgroundColor: backgroundColor}} className="col2">
-                <TokenIcon id={props.id}/>
+                <TokenIcon id={props.id}  color="#D875C7"/>
             </div>
             <div style={{backgroundColor: backgroundColor}} className='col3'>{props.token}</div>
             

@@ -53,6 +53,15 @@ function VariablesContent(props) {
     setDeleteVisibility("hidden");
   }, [props.CheckBoxes]);
   
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+      const handleResize = () => {
+        setIsMobile(window.innerWidth <= 600); // Set the breakpoint as per your requirement
+      };
+      handleResize();
+      window.addEventListener('resize', handleResize);
+      return () => {window.removeEventListener('resize', handleResize);};
+    }, []); // Only run once on mount
 
   // Pagination
   function handleChange(e,value) {
@@ -124,7 +133,7 @@ function VariablesContent(props) {
           <strong> Variables </strong> 
           {/* <SearchIcon onClick={handleSearch} style={{color: "var(--color_tertiary)", cursor: "pointer"}}/> */}
           <SearchIcon style={{color: "var(--color_tertiary)"}}/>
-          <InputBase sx={{...TFStyles, ml: 1, flex: 1 }} placeholder="Search Variable" value={search}
+          <InputBase sx={{...TFStyles, ml: 1, flex: 1}} placeholder="Search Variable" value={search}
                     inputProps={{ 'aria-label': 'search' }} onChange={handleInputChange} onKeyDown={handleKeyDown}/>
           {/* {search!=="" && <CloseIcon onClick={handleCancel} style={{color: "var(--color_tertiary)", cursor: "pointer"}}/>} */}
         </div>
@@ -162,13 +171,13 @@ function VariablesContent(props) {
         <div className="button1">
           <Button style={{visibility: deleteVisibility}} 
                   className="button_bottom" onClick={props.deleteSelected} 
-                  label="Delete Selected"></Button>
+                  label={isMobile ? "Delete" : "Delete Selected"}></Button>
           </div>
           <div className="counts">(Displaying {(props.page-1)*10+1} - {props.page*10 < countings.variables ? props.page*10 : countings.variables} of {countings.variables})</div>
           
           <div className="button2">
             <Button className="button_bottom" onClick={props.showAddPanel} 
-                    label="+ Add Variable"></Button>
+                    label={isMobile ? "+ Add" : "+ Add Variable"}></Button>
           </div>
         </div>
         <div className="paging">
